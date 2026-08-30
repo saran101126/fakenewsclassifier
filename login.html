@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Fake News Classifier - Login</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+            color: white;
+            text-align: center;
+        }
+
+        .login-box {
+            width: 350px;
+            margin: 100px auto;
+            padding: 35px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 15px;
+        }
+
+        input {
+            width: 90%;
+            padding: 12px;
+            margin: 10px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+        }
+
+        button {
+            padding: 12px 30px;
+            margin-top: 15px;
+            border: none;
+            border-radius: 8px;
+            font-size: 17px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        #message {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="login-box">
+
+    <h1>Login</h1>
+
+    <input type="text" id="username" placeholder="Enter username">
+
+    <input type="password" id="password" placeholder="Enter password">
+
+    <button onclick="login()">Login</button>
+
+    <div id="message"></div>
+
+</div>
+
+<script>
+async function login() {
+
+    const username = document.getElementById("username").value;
+    const password = document.getElementById("password").value;
+
+    const response = await fetch("/login", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            username: username,
+            password: password
+        })
+    });
+
+    const data = await response.json();
+
+    document.getElementById("message").innerText = data.message;
+
+    if (data.success) {
+        window.location.href = "/check";
+    }
+}
+</script>
+
+</body>
+</html>

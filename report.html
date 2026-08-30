@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Fake News Report</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+            color: white;
+            text-align: center;
+        }
+
+        .container {
+            padding: 100px 20px;
+        }
+
+        h1 {
+            font-size: 45px;
+            margin-bottom: 20px;
+        }
+
+        p {
+            font-size: 20px;
+            margin-bottom: 40px;
+        }
+
+        button {
+            padding: 15px 30px;
+            font-size: 17px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            background: white;
+            color: #203a43;
+            font-weight: bold;
+            margin: 10px;
+        }
+
+        button:hover {
+            background: #dddddd;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h1>Fake News Classification Report</h1>
+
+        <p>
+            Generate a PDF report of the news you checked.
+        </p>
+
+        <button onclick="generateReport()">
+            Generate PDF Report
+        </button>
+
+        <a href="/check">
+            <button>Back</button>
+        </a>
+
+    </div>
+
+    <script>
+        function generateReport() {
+            window.location.href = "/generate-report";
+        }
+    </script>
+
+</body>
+</html>
