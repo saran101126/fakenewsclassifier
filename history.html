@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>News History</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+            color: white;
+            text-align: center;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 900px;
+            margin: 50px auto;
+        }
+
+        h1 {
+            margin-bottom: 10px;
+        }
+
+        p {
+            color: #ddd;
+        }
+
+        .history-box {
+            background: white;
+            color: #222;
+            padding: 20px;
+            margin-top: 30px;
+            border-radius: 12px;
+            text-align: left;
+        }
+
+        .item {
+            border-bottom: 1px solid #ddd;
+            padding: 18px 5px;
+        }
+
+        .item:last-child {
+            border-bottom: none;
+        }
+
+        .news {
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+
+        .result {
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        .real {
+            color: green;
+        }
+
+        .fake {
+            color: red;
+        }
+
+        .confidence {
+            color: #444;
+            margin-bottom: 8px;
+        }
+
+        .date {
+            color: #777;
+            font-size: 14px;
+        }
+
+        .empty {
+            text-align: center;
+            color: #777;
+        }
+
+        .buttons {
+            margin-top: 25px;
+        }
+
+        .back-btn,
+        .clear-btn {
+            display: inline-block;
+            padding: 12px 25px;
+            margin: 5px;
+            border-radius: 8px;
+            text-decoration: none;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 15px;
+        }
+
+        .back-btn {
+            background: #2196f3;
+        }
+
+        .clear-btn {
+            background: #e53935;
+        }
+
+        .back-btn:hover {
+            background: #1976d2;
+        }
+
+        .clear-btn:hover {
+            background: #c62828;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>News History</h1>
+
+    <p>Previously checked news and their results</p>
+
+    <div class="history-box" id="historyBox">
+
+        <div class="empty">
+            No news checked yet.
+        </div>
+
+    </div>
+
+    <div class="buttons">
+
+        <a href="/check" class="back-btn">
+            Back to Check News
+        </a>
+
+        <button class="clear-btn" onclick="clearHistory()">
+            Clear History
+        </button>
+
+    </div>
+
+</div>
+
+
+<script>
+
+function loadHistory() {
+
+    const historyBox =
+        document.getElementById("historyBox");
+
+    const history =
+        JSON.parse(
+            localStorage.getItem("newsHistory")
+        ) || [];
+
+
+    if (history.length === 0) {
+
+        historyBox.innerHTML =
+            '<div class="empty">No news checked yet.</div>';
+
+        return;
+    }
+
+
+    historyBox.innerHTML = "";
+
+
+    history.slice().reverse().forEach(function(item) {
+
+        const div =
+            document.createElement("div");
+
+        div.className = "item";
+
+
+        let resultClass = "fake";
+
+        if (
+            item.result &&
+            item.result.includes("REAL")
+        ) {
+            resultClass = "real";
+        }
+
+
+        div.innerHTML = `
+
+            <div class="news">
+                <strong>News:</strong>
+                ${item.news}
+            </div>
+
+            <div class="result ${resultClass}">
+                Result: ${item.result}
+            </div>
+
+            <div class="confidence">
+                ${
+                    item.confidence
+                    ? "Confidence: " + item.confidence
+                    : ""
+                }
+            </div>
+
+            <div class="date">
+                ${item.date}
+            </div>
+
+        `;
+
+
+        historyBox.appendChild(div);
+
+    });
+
+}
+
+
+function clearHistory() {
+
+    localStorage.removeItem("newsHistory");
+
+    loadHistory();
+
+}
+
+
+loadHistory();
+
+</script>
+
+</body>
+</html>

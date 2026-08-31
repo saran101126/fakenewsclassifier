@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Check News</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+            color: white;
+            text-align: center;
+        }
+
+        .container {
+            padding: 70px 20px;
+        }
+
+        h1 {
+            font-size: 42px;
+            margin-bottom: 15px;
+        }
+
+        p {
+            font-size: 18px;
+        }
+
+        textarea {
+            width: 80%;
+            max-width: 700px;
+            height: 180px;
+            padding: 15px;
+            border-radius: 10px;
+            border: none;
+            font-size: 16px;
+            margin-top: 20px;
+            resize: vertical;
+        }
+
+        button {
+            margin-top: 20px;
+            padding: 14px 30px;
+            font-size: 18px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            background: white;
+            color: #203a43;
+            font-weight: bold;
+        }
+
+        button:hover {
+            background: #dddddd;
+        }
+
+        .logout {
+            background: #eeeeee;
+        }
+
+        #result {
+            margin-top: 30px;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        #reason {
+            margin-top: 15px;
+            font-size: 17px;
+        }
+
+        .history-btn,
+        .report-btn {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 14px 30px;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: bold;
+        }
+
+        .history-btn {
+            background: #2196f3;
+        }
+
+        .report-btn {
+            background: #4caf50;
+        }
+
+        .history-btn:hover {
+            background: #1976d2;
+        }
+
+        .report-btn:hover {
+            background: #388e3c;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>Check Your News</h1>
+
+    <p>
+        Enter the news article below to check whether it is Real or Fake.
+    </p>
+
+    <textarea
+        id="news"
+        placeholder="Enter news here..."></textarea>
+
+    <br>
+
+    <button onclick="checkNews()">
+        Check News
+    </button>
+
+    <div id="result"></div>
+
+    <div id="reason"></div>
+
+    <br>
+
+    <!-- NEWS HISTORY -->
+    <a href="/history" class="history-btn">
+        View News History
+    </a>
+
+    <br>
+
+    <!-- REPORT -->
+    <a href="/report" class="report-btn">
+        View Report
+    </a>
+
+    <br>
+
+    <!-- LOGOUT -->
+    <a href="/logout">
+        <button class="logout">
+            Logout
+        </button>
+    </a>
+
+</div>
+
+
+<script>
+
+async function checkNews() {
+
+    const news =
+        document.getElementById("news").value.trim();
+
+
+    if (news === "") {
+
+        document.getElementById("result").innerText =
+            "PLEASE ENTER SOME NEWS";
+
+        document.getElementById("reason").innerText =
+            "Please enter a news article before checking.";
+
+        return;
+    }
+
+
+    try {
+
+        const response = await fetch("/predict", {
+
+            method: "POST",
+
+            headers: {
+                "Content-Type": "application/json"
+            },
+
+            body: JSON.stringify({
+                news: news
+            })
+
+        });
+
+
+        const data = await response.json();
+
+
+        document.getElementById("result").innerText =
+            data.result;
+
+
+        document.getElementById("reason").innerText =
+            data.reason;
+
+
+        // SAVE HISTORY
+
+        const history =
+            JSON.parse(
+                localStorage.getItem("newsHistory")
+            ) || [];
+
+
+        history.push({
+
+            news: news,
+
+            result: data.result,
+
+            date: new Date().toLocaleString()
+
+        });
+
+
+        localStorage.setItem(
+            "newsHistory",
+            JSON.stringify(history)
+        );
+
+
+    } catch (error) {
+
+        document.getElementById("result").innerText =
+            "ERROR";
+
+        document.getElementById("reason").innerText =
+            "Unable to connect to the server.";
+
+    }
+
+}
+
+</script>
+
+</body>
+</html>
