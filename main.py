@@ -293,7 +293,8 @@ def login():
     ).strip()
 
 
-    if username == "saran" and password == "143":
+    # Any non-empty username and password are accepted
+    if username and password:
 
         session["logged_in"] = True
         session["username"] = username
@@ -306,7 +307,7 @@ def login():
 
     return jsonify({
         "success": False,
-        "message": "Invalid username or password"
+        "message": "Please enter username and password"
     })
 
 
@@ -818,5 +819,7 @@ def logout():
 if __name__ == "__main__":
 
     app.run(
-        debug=True
+        host="0.0.0.0",
+        port=10000,
+        debug=False
     )
