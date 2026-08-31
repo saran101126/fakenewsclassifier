@@ -4,16 +4,14 @@ import re
 from datetime import datetime
 
 from sklearn.model_selection import train_test_split
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import (
     accuracy_score,
     precision_score,
     recall_score,
     f1_score
 )
-
-from tensorflow import keras
-from tensorflow.keras import layers
-
 
 app = Flask(__name__)
 app.secret_key = "fake-news-classifier-secret-key"
@@ -27,15 +25,6 @@ data = pd.read_csv("dataset.csv")
 
 data["text"] = data["text"].astype(str)
 data["label"] = data["label"].astype(str).str.upper().str.strip()
-
-print("================================")
-print("DATASET INFORMATION")
-print("================================")
-
-print("LABELS:")
-print(data["label"].value_counts())
-
-print("TOTAL NEWS:", len(data))
 
 
 # =========================================================
@@ -69,9 +58,6 @@ def preprocess_text(text):
 
 texts = data["text"].apply(preprocess_text)
 
-print("PREPROCESSED SAMPLE:")
-print(texts.head(3).tolist())
-
 
 # =========================================================
 # LABEL CONVERSION
@@ -80,26 +66,35 @@ print(texts.head(3).tolist())
 y = data["label"].map({
     "REAL": 1,
     "FAKE": 0
-}).values
+})
+
+
+# Remove invalid labels
+valid_rows = y.notna()
+
+texts = texts[valid_rows]
+y = y[valid_rows].astype(int)
 
 
 # =========================================================
-# TEXT VECTORIZATION
+# TF-IDF FEATURE EXTRACTION
 # =========================================================
 
-max_words = 20000
+print("================================")
+print("TF-IDF FEATURE EXTRACTION")
+print("================================")
 
-text_vectorizer = layers.TextVectorization(
-    max_tokens=max_words,
-    output_mode="tf_idf",
-    ngrams=2
+vectorizer = TfidfVectorizer(
+    lowercase=True,
+    max_features=10000,
+    ngram_range=(1, 2),
+    stop_words="english"
 )
 
-text_vectorizer.adapt(texts.values)
+X = vectorizer.fit_transform(texts)
 
-X = text_vectorizer(texts.values)
 
-print("FEATURE MATRIX SHAPE:", X.shape)
+print("FEATURE MATRIX:", X.shape)
 
 
 # =========================================================
@@ -107,101 +102,39 @@ print("FEATURE MATRIX SHAPE:", X.shape)
 # =========================================================
 
 X_train, X_test, y_train, y_test = train_test_split(
-    X.numpy(),
+    X,
     y,
     test_size=0.20,
     random_state=42,
     stratify=y
 )
 
-print("TRAINING DATA:", X_train.shape)
-print("TESTING DATA :", X_test.shape)
-
 
 # =========================================================
-# DEEP LEARNING MODEL
+# LOGISTIC REGRESSION CLASSIFICATION MODEL
 # =========================================================
 
-model = keras.Sequential([
+print("================================")
+print("TRAINING CLASSIFICATION MODEL")
+print("================================")
 
-    layers.Input(
-        shape=(X.shape[1],)
-    ),
-
-    layers.Dense(
-        256,
-        activation="relu"
-    ),
-
-    layers.Dropout(0.35),
-
-    layers.Dense(
-        128,
-        activation="relu"
-    ),
-
-    layers.Dropout(0.25),
-
-    layers.Dense(
-        64,
-        activation="relu"
-    ),
-
-    layers.Dropout(0.15),
-
-    layers.Dense(
-        1,
-        activation="sigmoid"
-    )
-])
-
-
-model.compile(
-    optimizer="adam",
-    loss="binary_crossentropy",
-    metrics=["accuracy"]
+model = LogisticRegression(
+    max_iter=1000
 )
-
-
-# =========================================================
-# TRAIN MODEL
-# =========================================================
-
-print("================================")
-print("TRAINING DEEP LEARNING MODEL")
-print("================================")
 
 model.fit(
     X_train,
-    y_train,
-    epochs=10,
-    batch_size=32,
-    verbose=1,
-    shuffle=True
+    y_train
 )
 
-print("================================")
-print("DEEP LEARNING TRAINING COMPLETED")
-print("================================")
+print("MODEL TRAINING COMPLETED")
 
 
 # =========================================================
 # MODEL EVALUATION
 # =========================================================
 
-print("================================")
-print("MODEL EVALUATION")
-print("================================")
-
-test_probability = model.predict(
-    X_test,
-    verbose=0
-).flatten()
-
-test_prediction = (
-    test_probability >= 0.5
-).astype(int)
-
+test_prediction = model.predict(X_test)
 
 accuracy = accuracy_score(
     y_test,
@@ -226,6 +159,10 @@ f1 = f1_score(
     zero_division=0
 )
 
+
+print("================================")
+print("MODEL EVALUATION")
+print("================================")
 
 print(
     f"Accuracy : {accuracy * 100:.2f}%"
@@ -293,7 +230,7 @@ def login():
     ).strip()
 
 
-    # Any non-empty username and password are accepted
+    # Any username and any password are accepted
     if username and password:
 
         session["logged_in"] = True
@@ -341,120 +278,136 @@ def predict():
         })
 
 
-    news_data = request.get_json() or {}
+    try:
 
-    news = news_data.get(
-        "news",
-        ""
-    ).strip()
+        news_data = request.get_json() or {}
 
-
-    if news == "":
-
-        return jsonify({
-            "result": "PLEASE ENTER SOME NEWS",
-            "reason": "Please enter a news article.",
-            "confidence": "0%"
-        })
+        news = news_data.get(
+            "news",
+            ""
+        ).strip()
 
 
-    # -----------------------------------------------------
-    # PREPROCESS NEWS
-    # -----------------------------------------------------
+        if news == "":
 
-    processed_news = preprocess_text(news)
-
-
-    if processed_news == "":
-
-        return jsonify({
-            "result": "INVALID NEWS",
-            "reason": "Please enter meaningful news text.",
-            "confidence": "0%"
-        })
+            return jsonify({
+                "result": "PLEASE ENTER SOME NEWS",
+                "reason": "Please enter a news article.",
+                "confidence": "0%"
+            })
 
 
-    # -----------------------------------------------------
-    # CONVERT NEWS INTO FEATURES
-    # -----------------------------------------------------
+        # -------------------------------------------------
+        # PREPROCESS
+        # -------------------------------------------------
 
-    news_features = text_vectorizer(
-        [processed_news]
-    )
+        processed_news = preprocess_text(news)
 
 
-    # -----------------------------------------------------
-    # MODEL PREDICTION
-    # -----------------------------------------------------
+        if processed_news == "":
 
-    probability = float(
-        model.predict(
-            news_features,
-            verbose=0
-        )[0][0]
-    )
+            return jsonify({
+                "result": "INVALID NEWS",
+                "reason": "Please enter meaningful news text.",
+                "confidence": "0%"
+            })
 
 
-    # -----------------------------------------------------
-    # CLASSIFICATION
-    # -----------------------------------------------------
+        # -------------------------------------------------
+        # TF-IDF
+        # -------------------------------------------------
 
-    if probability >= 0.5:
-
-        result = "REAL NEWS"
-
-        confidence = probability * 100
-
-    else:
-
-        result = "FAKE NEWS"
-
-        confidence = (1 - probability) * 100
-
-
-    # -----------------------------------------------------
-    # REASON
-    # -----------------------------------------------------
-
-    reason = (
-        "The deep learning model classified "
-        f"this news as "
-        f"{result.replace(' NEWS', '')} "
-        f"with {confidence:.1f}% "
-        "model confidence."
-    )
-
-
-    # -----------------------------------------------------
-    # SAVE HISTORY
-    # -----------------------------------------------------
-
-    history_data.append({
-
-        "news": news,
-
-        "result": result,
-
-        "confidence": f"{confidence:.1f}%",
-
-        "date": datetime.now().strftime(
-            "%d-%m-%Y %I:%M %p"
+        news_features = vectorizer.transform(
+            [processed_news]
         )
-    })
 
 
-    # -----------------------------------------------------
-    # RESPONSE
-    # -----------------------------------------------------
+        # -------------------------------------------------
+        # PREDICTION
+        # -------------------------------------------------
 
-    return jsonify({
+        prediction = model.predict(
+            news_features
+        )[0]
 
-        "result": result,
 
-        "reason": reason,
+        probabilities = model.predict_proba(
+            news_features
+        )[0]
 
-        "confidence": f"{confidence:.1f}%"
-    })
+
+        confidence = max(probabilities) * 100
+
+
+        # -------------------------------------------------
+        # RESULT
+        # -------------------------------------------------
+
+        if prediction == 1:
+
+            result = "REAL NEWS"
+
+        else:
+
+            result = "FAKE NEWS"
+
+
+        # -------------------------------------------------
+        # REASON
+        # -------------------------------------------------
+
+        reason = (
+            "The machine learning model classified "
+            "this news as "
+            f"{result.replace(' NEWS', '')} "
+            f"with {confidence:.1f}% model confidence."
+        )
+
+
+        # -------------------------------------------------
+        # SAVE HISTORY
+        # -------------------------------------------------
+
+        history_data.append({
+
+            "news": news,
+
+            "result": result,
+
+            "confidence": f"{confidence:.1f}%",
+
+            "date": datetime.now().strftime(
+                "%d-%m-%Y %I:%M %p"
+            )
+        })
+
+
+        # -------------------------------------------------
+        # RESPONSE
+        # -------------------------------------------------
+
+        return jsonify({
+
+            "result": result,
+
+            "reason": reason,
+
+            "confidence": f"{confidence:.1f}%"
+        })
+
+
+    except Exception as e:
+
+        print("PREDICTION ERROR:", str(e))
+
+        return jsonify({
+
+            "result": "ERROR",
+
+            "reason": "Unable to process the news.",
+
+            "confidence": "0%"
+        }), 500
 
 
 # =========================================================
@@ -503,7 +456,9 @@ def clear_history():
 
 
     return jsonify({
+
         "success": True,
+
         "message": "History cleared"
     })
 
@@ -555,9 +510,7 @@ def generate_report():
     y = height - 50
 
 
-    # -----------------------------------------------------
     # TITLE
-    # -----------------------------------------------------
 
     pdf.setFont(
         "Helvetica-Bold",
@@ -574,9 +527,7 @@ def generate_report():
     y -= 40
 
 
-    # -----------------------------------------------------
-    # GENERATED DATE
-    # -----------------------------------------------------
+    # DATE
 
     pdf.setFont(
         "Helvetica",
@@ -596,9 +547,7 @@ def generate_report():
     y -= 35
 
 
-    # -----------------------------------------------------
-    # MODEL METRICS
-    # -----------------------------------------------------
+    # MODEL EVALUATION
 
     pdf.setFont(
         "Helvetica-Bold",
@@ -628,7 +577,6 @@ def generate_report():
 
     y -= 15
 
-
     pdf.drawString(
         50,
         y,
@@ -637,7 +585,6 @@ def generate_report():
 
     y -= 15
 
-
     pdf.drawString(
         50,
         y,
@@ -645,7 +592,6 @@ def generate_report():
     )
 
     y -= 15
-
 
     pdf.drawString(
         50,
@@ -656,9 +602,7 @@ def generate_report():
     y -= 35
 
 
-    # -----------------------------------------------------
-    # NEWS HISTORY
-    # -----------------------------------------------------
+    # HISTORY
 
     pdf.setFont(
         "Helvetica-Bold",
@@ -712,7 +656,6 @@ def generate_report():
                 + item["result"]
             )
 
-
             y -= 18
 
 
@@ -728,7 +671,6 @@ def generate_report():
                 + item["confidence"]
             )
 
-
             y -= 18
 
 
@@ -739,13 +681,8 @@ def generate_report():
                 + item["date"]
             )
 
-
             y -= 20
 
-
-            # -------------------------------------------------
-            # NEWS TEXT
-            # -------------------------------------------------
 
             news_text = item["news"]
 
@@ -770,7 +707,6 @@ def generate_report():
                     y -= 15
 
                     line = word + " "
-
 
                 else:
 
@@ -813,13 +749,22 @@ def logout():
 
 
 # =========================================================
-# RUN FLASK SERVER
+# RUN SERVER
 # =========================================================
 
 if __name__ == "__main__":
 
+    import os
+
+    port = int(
+        os.environ.get(
+            "PORT",
+            5000
+        )
+    )
+
     app.run(
         host="0.0.0.0",
-        port=10000,
+        port=port,
         debug=False
     )
