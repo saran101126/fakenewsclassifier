@@ -1,101 +1,51 @@
 text,label
-"The government announced a new scholarship scheme for college students.",REAL
-"The central bank released its latest annual financial report.",REAL
-"The education department announced new examination dates.",REAL
-"The railway department introduced additional trains for the festival season.",REAL
-"The health department launched a public awareness campaign.",REAL
-"The university announced the results of the semester examinations.",REAL
-"The government approved funding for a new public hospital.",REAL
-"The weather department issued an official rainfall warning.",REAL
-"Scientists published a study about renewable energy technology.",REAL
-"The election commission announced the official voting schedule.",REAL
-"The city council approved a budget for improving public roads.",REAL
-"The transport department announced changes to bus routes.",REAL
-"The university opened registration for the next academic semester.",REAL
-"The agriculture department released guidelines for farmers.",REAL
-"The technology ministry announced a new digital services program.",REAL
-"The railway authority announced maintenance work on several routes.",REAL
-"The health ministry released updated vaccination information.",REAL
-"The education board published the timetable for board examinations.",REAL
-"The meteorological department recorded heavy rainfall in several districts.",REAL
-"The government launched a program to improve rural internet access.",REAL
-"The public library announced new membership facilities for students.",REAL
-"The science department funded research into solar energy.",REAL
-"The court published its latest annual administrative report.",REAL
-"The municipal corporation announced a new waste management program.",REAL
-"The university introduced additional courses for the upcoming academic year.",REAL
+"The education department announced new examination dates for government schools.",REAL
+"The railway authority announced additional services during the festival season.",REAL
+"The health ministry launched a public awareness campaign on seasonal diseases.",REAL
+"The university announced the results of its semester examinations.",REAL
+"The weather department issued a rainfall warning for several districts.",REAL
 "The finance department released details of the annual budget.",REAL
-"The transport authority announced new safety guidelines for passengers.",REAL
-"The agriculture ministry published information about crop insurance.",REAL
-"The health department opened a new medical testing center.",REAL
-"The education department announced teacher training programs.",REAL
-"The government announced financial assistance for eligible small businesses.",REAL
-"The railway department added extra coaches to selected services.",REAL
-"The weather service issued a warning about strong winds.",REAL
-"The national research agency announced funding for scientific projects.",REAL
-"The university announced a new computer science laboratory.",REAL
-"The local administration started repairs on several damaged roads.",REAL
-"The government released a report on renewable energy production.",REAL
-"The public hospital introduced an online appointment system.",REAL
-"The election authority published voter registration information.",REAL
-"The education department announced changes to the school curriculum.",REAL
-"The central bank published information about the country's economic outlook.",REAL
-"The government launched a campaign promoting water conservation.",REAL
-"The transport department announced new rules for vehicle inspections.",REAL
-"The agriculture department organized training sessions for farmers.",REAL
+"The transport department announced new safety rules for passengers.",REAL
+"The agriculture department published new crop insurance guidelines.",REAL
+"The public hospital introduced an online appointment booking system.",REAL
+"The election commission published information about voter registration.",REAL
+"The government announced funding for improvements to public hospitals.",REAL
+"The municipal corporation announced a new waste management programme.",REAL
 "The university opened applications for research scholarships.",REAL
-"The health ministry published information about seasonal illnesses.",REAL
-"The municipal authority announced improvements to public parks.",REAL
-"The science ministry announced grants for technology research.",REAL
-"The government released an official report on employment statistics.",REAL
-"The education board announced the schedule for practical examinations.",REAL
-"Scientists discover that one ordinary tablet can make humans live forever.",FAKE
-"The government announces that every citizen will receive a free private jet tomorrow.",FAKE
-"A viral post claims that drinking one glass of water can cure every disease.",FAKE
-"Researchers reportedly invented a machine that can stop time for everyone.",FAKE
-"A secret phone application can supposedly predict every lottery winning number.",FAKE
-"Doctors allegedly recommend sleeping only five minutes each night for perfect health.",FAKE
-"A new device reportedly allows people to become invisible instantly.",FAKE
-"Scientists claim that humans can survive underwater without breathing equipment.",FAKE
-"A viral message says that the moon will disappear for an entire year.",FAKE
-"An internet post claims that eating one particular food gives people superhuman strength.",FAKE
-"A message claims that the government will give every student a brand-new car for free.",FAKE
-"Scientists supposedly created a button that instantly makes anyone rich.",FAKE
-"A viral article claims that smartphones can charge themselves using moonlight.",FAKE
-"Doctors supposedly discovered a drink that permanently prevents all illnesses.",FAKE
-"An online post claims that humans can travel through time using a household microwave.",FAKE
-"A viral message says that schools will replace all teachers with robots next week.",FAKE
-"Researchers allegedly discovered a way to turn ordinary water into gold instantly.",FAKE
-"An internet rumor claims that a mobile phone can work without electricity forever.",FAKE
-"A fake report claims that the sun will stop producing heat next month.",FAKE
-"A viral post claims that listening to one song can instantly increase intelligence.",FAKE
-"An online article claims that people can learn an entire language in one minute.",FAKE
-"A message claims that a new medicine can cure every known disease immediately.",FAKE
-"Scientists allegedly found a secret island that appears only once every hundred years.",FAKE
-"A viral rumor says that all internet services will become permanently free tomorrow.",FAKE
+"The science ministry announced grants for renewable energy research.",REAL
+"The government released employment statistics for the current year.",REAL
+"The central bank published its latest economic report.",REAL
+"The education board released the timetable for board examinations.",REAL
+"The transport authority announced changes to several bus routes.",REAL
+"The railway department announced maintenance work on selected routes.",REAL
+"The local administration started repairs on damaged roads.",REAL
+"Scientists published research on solar energy technology.",REAL
+"The university announced a new computer science laboratory.",REAL
+"The health department opened a new medical testing centre.",REAL
+"The agriculture ministry organised training sessions for farmers.",REAL
+"The government launched a campaign promoting water conservation.",REAL
+"The public library announced new membership facilities for students.",REAL
+"The city council approved funding for road improvements.",REAL
+"The education department announced a teacher training programme.",REAL
+"The government announced financial assistance for eligible small businesses.",REAL
+"The meteorological department reported heavy rainfall in several areas.",REAL
+"A social media post claims that every student will receive a free laptop tomorrow.",FAKE
+"A viral message claims that drinking a special juice can cure every disease.",FAKE
+"An online post claims that a phone can charge itself using moonlight.",FAKE
+"A viral article claims that one food can give humans superhuman strength.",FAKE
+"An internet rumour claims that every citizen will receive a free car next week.",FAKE
+"A fake report claims that schools will give every student unlimited marks.",FAKE
+"A viral message claims that ordinary water can instantly become gold.",FAKE
+"An online article claims that a household microwave can create a time machine.",FAKE
+"A social media post claims that humans can become invisible using a new device.",FAKE
+"A viral rumour claims that all internet services will become permanently free.",FAKE
+"A fake report claims that scientists have completely stopped human ageing.",FAKE
+"An online message claims that a normal battery can power a house for one hundred years.",FAKE
+"A viral post claims that one minute of exercise can replace an entire night's sleep.",FAKE
+"A fake article claims that a camera can record events that have not happened yet.",FAKE
+"An internet rumour claims that a television can communicate with people in the future.",FAKE
+"A viral message claims that every mobile phone will automatically receive free money.",FAKE
+"A fake report claims that a machine can control the weather anywhere on Earth.",FAKE
 "An online post claims that ordinary shoes can make people run faster than cars.",FAKE
-"A fake news story claims that the government has banned sleep for citizens.",FAKE
-"A viral message says that drinking cold water can instantly change a person's height.",FAKE
-"Researchers supposedly developed glasses that can see through any building.",FAKE
-"An internet rumor claims that a computer can predict every event in the future.",FAKE
-"A fake report says that schools will give every student unlimited exam marks.",FAKE
-"A viral article claims that eating chocolate makes people immune to all diseases.",FAKE
-"An online message claims that a household fan can generate unlimited electricity.",FAKE
-"Scientists supposedly discovered a method to make people permanently young overnight.",FAKE
-"A fake report claims that every train in the country will become completely free tomorrow.",FAKE
-"A viral post says that one hour of staring at a phone can make someone fluent in mathematics.",FAKE
-"An internet rumor claims that ordinary batteries can power a house for one hundred years.",FAKE
-"A fake article claims that the government has created a machine to control the weather anywhere.",FAKE
-"Researchers supposedly invented shoes that allow people to walk on clouds.",FAKE
-"A viral message claims that drinking sunlight can provide all the energy a person needs.",FAKE
-"An online post says that a new computer program can guarantee winning every game.",FAKE
-"A fake report claims that scientists have completely eliminated aging.",FAKE
-"A viral rumor claims that a single seed can grow into a fully built house overnight.",FAKE
-"An internet article claims that people can communicate with the future using a television.",FAKE
-"A fake message says that every mobile phone will receive unlimited money automatically.",FAKE
-"Researchers allegedly created a machine that can duplicate any object instantly.",FAKE
-"A viral post claims that one minute of exercise is enough to replace all sleep.",FAKE
-"An online rumor says that the government will make every citizen a millionaire this week.",FAKE
-"A fake article claims that a new camera can see events happening tomorrow.",FAKE
-"Scientists supposedly discovered a way to make rain fall on any location on command.",FAKE
-"A viral message claims that ordinary water can be converted into fuel at home instantly.",FAKE
+"A viral article claims that a single seed can grow into a complete house overnight.",FAKE
+"A fake message claims that all trains will become completely free tomorrow.",FAKE
