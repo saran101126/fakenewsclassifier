@@ -4,59 +4,339 @@
     <title>History Event Analysis and Real or Fake</title>
 
     <style>
+        * {
+            box-sizing: border-box;
+        }
+
         body {
             margin: 0;
             font-family: Arial, sans-serif;
-            background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+            background: linear-gradient(135deg, #061a35, #0b3b66, #071c35);
+            background-size: 300% 300%;
+            animation: backgroundMove 10s ease infinite;
             color: white;
             text-align: center;
+            min-height: 100vh;
+            overflow-x: hidden;
         }
 
-        .container {
-            padding: 100px 20px;
+        @keyframes backgroundMove {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
         }
 
-        h1 {
-            font-size: 50px;
-            margin-bottom: 20px;
+        /* Navigation */
+
+        nav {
+            height: 75px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 60px;
+            border-bottom: 1px solid rgba(255,255,255,0.15);
+            background: rgba(0,0,0,0.15);
         }
 
-        p {
-            font-size: 20px;
-            margin-bottom: 40px;
-        }
-
-        button {
-            padding: 15px 35px;
-            font-size: 18px;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            background: white;
-            color: #203a43;
+        .logo {
+            font-size: 24px;
             font-weight: bold;
         }
 
-        button:hover {
-            background: #dddddd;
+        .menu a {
+            color: white;
+            text-decoration: none;
+            margin-left: 35px;
+            font-size: 17px;
+            transition: 0.3s;
         }
+
+        .menu a:hover {
+            color: #29a9ff;
+        }
+
+        /* Main */
+
+        .container {
+            max-width: 1100px;
+            margin: auto;
+            padding: 90px 20px;
+        }
+
+        .container h1 {
+            font-size: 55px;
+            line-height: 1.15;
+            margin-bottom: 25px;
+
+            animation: titleAppear 1.2s ease;
+        }
+
+        @keyframes titleAppear {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .highlight-real {
+            color: #24d878;
+        }
+
+        .highlight-fake {
+            color: #ff3b3b;
+        }
+
+        .description {
+            font-size: 20px;
+            line-height: 1.7;
+            max-width: 750px;
+            margin: auto;
+            color: #d8e7f5;
+
+            animation: fadeIn 1.8s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* Button */
+
+        .get-started {
+            display: inline-block;
+            margin-top: 40px;
+            padding: 17px 42px;
+            background: #1685ff;
+            color: white;
+            text-decoration: none;
+            border-radius: 10px;
+            font-size: 19px;
+            font-weight: bold;
+
+            box-shadow: 0 0 20px rgba(22,133,255,0.5);
+            transition: 0.3s;
+
+            animation: buttonAppear 2s ease;
+        }
+
+        @keyframes buttonAppear {
+            from {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .get-started:hover {
+            transform: translateY(-5px) scale(1.03);
+            box-shadow: 0 0 35px rgba(22,133,255,0.8);
+        }
+
+        /* Feature cards */
+
+        .features {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            margin-top: 80px;
+            flex-wrap: wrap;
+        }
+
+        .card {
+            width: 300px;
+            padding: 30px 25px;
+            background: rgba(255,255,255,0.06);
+            border: 1px solid rgba(255,255,255,0.12);
+            border-radius: 18px;
+            backdrop-filter: blur(10px);
+            transition: 0.4s;
+
+            animation: cardAppear 1.5s ease;
+        }
+
+        @keyframes cardAppear {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            border-color: #1685ff;
+            box-shadow: 0 10px 35px rgba(0,0,0,0.3);
+        }
+
+        .icon {
+            font-size: 45px;
+            margin-bottom: 15px;
+        }
+
+        .card h2 {
+            font-size: 22px;
+            margin-bottom: 12px;
+        }
+
+        .card p {
+            color: #cbd9e8;
+            line-height: 1.6;
+            font-size: 16px;
+        }
+
+        /* Mobile */
+
+        @media (max-width: 700px) {
+
+            nav {
+                padding: 0 20px;
+            }
+
+            .logo {
+                font-size: 18px;
+            }
+
+            .menu a {
+                margin-left: 12px;
+                font-size: 14px;
+            }
+
+            .container {
+                padding: 60px 20px;
+            }
+
+            .container h1 {
+                font-size: 38px;
+            }
+
+            .description {
+                font-size: 17px;
+            }
+
+            .card {
+                width: 100%;
+            }
+        }
+
     </style>
 </head>
 
 <body>
 
+    <!-- Navigation -->
+
+    <nav>
+
+        <div class="logo">
+            History Event Analysis
+        </div>
+
+        <div class="menu">
+            <a href="/">Home</a>
+            <a href="/login">Login</a>
+            <a href="/register">Register</a>
+        </div>
+
+    </nav>
+
+
+    <!-- Main Section -->
+
     <div class="container">
 
-        <h1>History Event Analysis and Real or Fake</h1>
+        <h1>
+            History Event<br>
+            Analysis and
+            <span class="highlight-real">Real</span>
+            or
+            <span class="highlight-fake">Fake</span>
+        </h1>
 
-        <p>
-            Analyze historical events and identify whether they are Real or Fake
+        <p class="description">
+            Analyze historical events and identify whether they are
+            <span class="highlight-real">Real</span> or
+            <span class="highlight-fake">Fake</span>
             using Machine Learning and Artificial Intelligence.
         </p>
 
-        <a href="/login">
-            <button>Get Started</button>
+        <a href="/login" class="get-started">
+            Get Started
         </a>
+
+
+        <!-- Features -->
+
+        <div class="features">
+
+            <div class="card">
+
+                <div class="icon">🤖</div>
+
+                <h2>AI Powered</h2>
+
+                <p>
+                    Advanced Machine Learning technology
+                    analyzes historical events.
+                </p>
+
+            </div>
+
+
+            <div class="card">
+
+                <div class="icon">🛡️</div>
+
+                <h2>Real or Fake</h2>
+
+                <p>
+                    Identify whether the given historical
+                    event is Real or Fake.
+                </p>
+
+            </div>
+
+
+            <div class="card">
+
+                <div class="icon">⚡</div>
+
+                <h2>Instant Analysis</h2>
+
+                <p>
+                    Get quick results from the
+                    historical event analysis system.
+                </p>
+
+            </div>
+
+        </div>
 
     </div>
 
