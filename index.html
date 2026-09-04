@@ -1,14 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>History Event Analysis and Real or Fake</title>
+    <title>History Event Analysis</title>
 
     <style>
-
         * {
             box-sizing: border-box;
             margin: 0;
@@ -17,410 +15,410 @@
 
         body {
             font-family: Arial, sans-serif;
-            background: #061b38;
+            background: linear-gradient(135deg, #06152e, #0b2c5c, #06234a);
             color: white;
-            overflow-x: hidden;
+            min-height: 100vh;
         }
 
-        /* ================= NAVBAR ================= */
+        /* NAVBAR */
 
         nav {
             height: 80px;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 0 5%;
+            padding: 0 6%;
             border-bottom: 1px solid rgba(255,255,255,0.12);
-            background: rgba(4, 20, 45, 0.9);
         }
 
         .logo {
-            font-size: 25px;
+            font-size: 24px;
             font-weight: bold;
         }
 
-        .nav-links {
-            display: flex;
-            gap: 40px;
-        }
-
-        .nav-links a {
+        nav a {
             color: white;
             text-decoration: none;
-            font-size: 17px;
-            transition: 0.3s;
+            margin-left: 35px;
+            font-size: 16px;
         }
 
-        .nav-links a:hover {
-            color: #28a9ff;
+        nav a:hover {
+            color: #20a4ff;
         }
 
-        /* ================= HERO ================= */
+        /* HERO */
 
         .hero {
-            min-height: 650px;
+            min-height: 600px;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 70px 6%;
-            gap: 40px;
+            padding: 70px 7%;
+            gap: 50px;
         }
 
         .hero-text {
-            width: 48%;
-            animation: slideLeft 1s ease;
+            width: 50%;
         }
 
         .hero-text h1 {
-            font-size: 58px;
-            line-height: 1.1;
+            font-size: 62px;
+            line-height: 1.08;
             margin-bottom: 25px;
         }
 
         .real {
-            color: #20d879;
+            color: #20e890;
         }
 
         .fake {
-            color: #ff3b3b;
+            color: #ff4d4d;
         }
 
         .hero-text p {
             font-size: 20px;
             line-height: 1.7;
-            color: #d7e3f2;
+            color: #d5e4f5;
             margin-bottom: 35px;
         }
 
-        /* ================= BUTTON ================= */
-
-        .get-started {
+        .btn {
             display: inline-block;
-            padding: 17px 38px;
-            background: linear-gradient(135deg, #147cff, #00b7ff);
+            padding: 16px 32px;
+            background: #168cff;
             color: white;
             text-decoration: none;
-            border-radius: 9px;
-            font-size: 19px;
+            border-radius: 8px;
+            font-size: 18px;
             font-weight: bold;
-            box-shadow: 0 0 25px rgba(0,150,255,0.35);
-            transition: 0.3s;
+            box-shadow: 0 8px 25px rgba(0,140,255,0.35);
         }
 
-        .get-started:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 0 35px rgba(0,180,255,0.7);
+        .btn:hover {
+            background: #0877dd;
         }
 
-        /* ================= IMAGE ================= */
+        /* AI ILLUSTRATION */
 
-        .hero-image {
-            width: 48%;
+        .illustration {
+            width: 45%;
+            min-height: 400px;
             display: flex;
+            align-items: center;
             justify-content: center;
-            animation: floatImage 4s ease-in-out infinite;
+            position: relative;
         }
 
-        .hero-image img {
-            width: 100%;
-            max-width: 650px;
-            border-radius: 20px;
-            object-fit: contain;
-            filter: drop-shadow(0 0 25px rgba(0,170,255,0.25));
+        .glow {
+            position: absolute;
+            width: 330px;
+            height: 330px;
+            background: #008cff;
+            border-radius: 50%;
+            filter: blur(100px);
+            opacity: 0.25;
         }
 
-        /* ================= FEATURES ================= */
+        .ai-box {
+            position: relative;
+            width: 360px;
+            height: 360px;
+        }
+
+        .brain {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            width: 180px;
+            height: 150px;
+            background: linear-gradient(135deg, #00bfff, #2455ff);
+            border-radius: 50% 45% 50% 45%;
+            box-shadow: 0 0 35px #009dff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 55px;
+            font-weight: bold;
+        }
+
+        .brain::before {
+            content: "AI";
+            color: white;
+        }
+
+        .book {
+            position: absolute;
+            bottom: 55px;
+            left: 35px;
+            width: 230px;
+            height: 75px;
+            background: linear-gradient(#253d62, #101f3b);
+            border-radius: 8px;
+            transform: rotate(-5deg);
+            box-shadow: 0 15px 25px rgba(0,0,0,0.4);
+        }
+
+        .book::before {
+            content: "";
+            position: absolute;
+            top: -12px;
+            left: 12px;
+            width: 205px;
+            height: 70px;
+            background: #31527e;
+            border-radius: 8px;
+        }
+
+        .scroll {
+            position: absolute;
+            bottom: 10px;
+            right: 15px;
+            width: 175px;
+            height: 110px;
+            background: #e7b96e;
+            border-radius: 10px;
+            transform: rotate(-4deg);
+            box-shadow: 0 12px 20px rgba(0,0,0,0.35);
+        }
+
+        .scroll::after {
+            content: "HISTORY";
+            position: absolute;
+            top: 40px;
+            left: 35px;
+            color: #70491f;
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        .glass {
+            position: absolute;
+            left: 15px;
+            top: 135px;
+            width: 115px;
+            height: 115px;
+            border: 15px solid #26384c;
+            border-radius: 50%;
+            background: rgba(30,170,255,0.25);
+            box-shadow: 0 0 25px #22aaff;
+        }
+
+        .glass::after {
+            content: "";
+            position: absolute;
+            width: 85px;
+            height: 18px;
+            background: #202d3c;
+            left: 75px;
+            top: 85px;
+            transform: rotate(45deg);
+            border-radius: 10px;
+        }
+
+        .check {
+            position: absolute;
+            right: -5px;
+            top: 190px;
+            color: #20e890;
+            font-size: 45px;
+        }
+
+        .cross {
+            position: absolute;
+            right: -5px;
+            top: 250px;
+            color: #ff4d4d;
+            font-size: 45px;
+        }
+
+        /* FEATURES */
 
         .features {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 30px;
-            padding: 20px 6% 70px;
+            gap: 25px;
+            padding: 20px 7% 70px;
         }
 
         .card {
-            padding: 35px 30px;
+            background: rgba(20,60,110,0.55);
+            border: 1px solid rgba(255,255,255,0.12);
             border-radius: 18px;
-            background: rgba(20, 55, 95, 0.45);
-            border: 1px solid rgba(100,180,255,0.15);
-            transition: 0.4s;
-            animation: fadeUp 1.2s ease;
+            padding: 30px;
         }
 
-        .card:hover {
-            transform: translateY(-10px);
-            border-color: #168cff;
-            box-shadow: 0 10px 35px rgba(0,130,255,0.2);
-        }
-
-        .icon {
-            font-size: 45px;
+        .card-icon {
+            font-size: 42px;
             margin-bottom: 15px;
         }
 
-        .card h2 {
+        .card h3 {
             font-size: 22px;
             margin-bottom: 12px;
         }
 
         .card p {
-            color: #c7d8e9;
+            color: #cbd9e9;
             line-height: 1.6;
-            font-size: 16px;
         }
 
-        /* ================= ANIMATIONS ================= */
+        /* MOBILE */
 
-        @keyframes slideLeft {
-
-            from {
-                opacity: 0;
-                transform: translateX(-60px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-
-        }
-
-        @keyframes fadeUp {
-
-            from {
-                opacity: 0;
-                transform: translateY(50px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-
-        }
-
-        @keyframes floatImage {
-
-            0%, 100% {
-                transform: translateY(0);
-            }
-
-            50% {
-                transform: translateY(-12px);
-            }
-
-        }
-
-        /* ================= MOBILE ================= */
-
-        @media (max-width: 800px) {
+        @media (max-width: 850px) {
 
             nav {
-                padding: 0 20px;
+                padding: 0 25px;
             }
 
-            .logo {
-                font-size: 18px;
-            }
-
-            .nav-links {
-                gap: 15px;
-            }
-
-            .nav-links a {
+            nav a {
+                margin-left: 12px;
                 font-size: 14px;
             }
 
             .hero {
                 flex-direction: column;
                 text-align: center;
-                padding: 50px 20px;
+                padding: 50px 25px;
             }
 
-            .hero-text,
-            .hero-image {
+            .hero-text {
                 width: 100%;
             }
 
             .hero-text h1 {
-                font-size: 40px;
+                font-size: 42px;
             }
 
-            .hero-text p {
-                font-size: 17px;
+            .illustration {
+                width: 100%;
             }
 
             .features {
                 grid-template-columns: 1fr;
-                padding: 20px;
+                padding: 20px 25px 50px;
             }
-
         }
-
     </style>
-
 </head>
-
 
 <body>
 
-    <!-- ================= NAVBAR ================= -->
+    <!-- NAVBAR -->
 
     <nav>
-
         <div class="logo">
             History Event Analysis
         </div>
 
-        <div class="nav-links">
-
+        <div>
             <a href="/">Home</a>
-
             <a href="/login">Login</a>
-
-            <a href="/register">Register</a>
-
+            <a href="/login">Register</a>
         </div>
-
     </nav>
 
 
-    <!-- ================= HERO ================= -->
+    <!-- HERO SECTION -->
 
     <section class="hero">
-
-
-        <!-- LEFT SIDE -->
 
         <div class="hero-text">
 
             <h1>
-
                 History Event<br>
-
                 Analysis and<br>
-
                 <span class="real">Real</span> or
-
                 <span class="fake">Fake</span>
-
             </h1>
 
-
             <p>
-
                 Analyze historical events and identify whether
-
                 they are <span class="real">Real</span> or
-
                 <span class="fake">Fake</span> using Machine
-
                 Learning and Artificial Intelligence.
-
             </p>
 
-
-            <a href="/login" class="get-started">
-
+            <a href="/login" class="btn">
                 Get Started
-
             </a>
 
         </div>
 
 
-        <!-- RIGHT SIDE IMAGE -->
+        <!-- CODING BASED ILLUSTRATION -->
 
-        <div class="hero-image">
+        <div class="illustration">
 
-            <img src="/static/hero.png"
-                 alt="AI Historical Event Analysis">
+            <div class="glow"></div>
+
+            <div class="ai-box">
+
+                <div class="brain"></div>
+
+                <div class="book"></div>
+
+                <div class="scroll"></div>
+
+                <div class="glass"></div>
+
+                <div class="check">✓</div>
+
+                <div class="cross">✕</div>
+
+            </div>
 
         </div>
-
 
     </section>
 
 
-    <!-- ================= FEATURES ================= -->
+    <!-- FEATURES -->
 
     <section class="features">
 
-
-        <!-- CARD 1 -->
-
         <div class="card">
 
-            <div class="icon">
-                🧠
-            </div>
+            <div class="card-icon">🧠</div>
 
-            <h2>
-                AI Powered
-            </h2>
+            <h3>AI Powered</h3>
 
             <p>
-
-                Advanced Machine Learning models analyze
-
-                historical events and news information.
-
+                Advanced AI models analyze historical events
+                and help identify whether they are real or fake.
             </p>
 
         </div>
 
 
-        <!-- CARD 2 -->
-
         <div class="card">
 
-            <div class="icon">
-                🛡️
-            </div>
+            <div class="card-icon">🛡️</div>
 
-            <h2>
-                Accurate Results
-            </h2>
+            <h3>Accurate Results</h3>
 
             <p>
-
-                Get accurate predictions whether
-
-                events are <span class="real">Real</span> or
-
-                <span class="fake">Fake</span>.
-
+                Get machine learning based predictions
+                for historical events.
             </p>
 
         </div>
 
 
-        <!-- CARD 3 -->
-
         <div class="card">
 
-            <div class="icon">
-                ⚡
-            </div>
+            <div class="card-icon">⚡</div>
 
-            <h2>
-                Instant Analysis
-            </h2>
+            <h3>Instant Analysis</h3>
 
             <p>
-
-                Fast and reliable analysis in just
-
-                a few seconds.
-
+                Fast and simple analysis of historical events
+                in just a few seconds.
             </p>
 
         </div>
-
 
     </section>
 
-
 </body>
-
 </html>
