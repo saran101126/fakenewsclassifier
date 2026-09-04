@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Check News</title>
+    <title>History Event Analysis</title>
 
     <style>
         body {
@@ -101,20 +101,20 @@
 
 <div class="container">
 
-    <h1>Check Your News</h1>
+    <h1>History Event Analysis</h1>
 
     <p>
-        Enter the news article below to check whether it is Real or Fake.
+        Enter a historical event below to check whether it is Real or Fake.
     </p>
 
     <textarea
         id="news"
-        placeholder="Enter news here..."></textarea>
+        placeholder="Enter historical event here..."></textarea>
 
     <br>
 
     <button onclick="checkNews()">
-        Check News
+        Check Event
     </button>
 
     <div id="result"></div>
@@ -123,9 +123,9 @@
 
     <br>
 
-    <!-- NEWS HISTORY -->
+    <!-- HISTORY -->
     <a href="/history" class="history-btn">
-        View News History
+        View History Event
     </a>
 
     <br>
@@ -158,10 +158,10 @@ async function checkNews() {
     if (news === "") {
 
         document.getElementById("result").innerText =
-            "PLEASE ENTER SOME NEWS";
+            "PLEASE ENTER SOME HISTORY EVENT";
 
         document.getElementById("reason").innerText =
-            "Please enter a news article before checking.";
+            "Please enter a historical event before checking.";
 
         return;
     }

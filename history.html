@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>News History</title>
+    <title>History Event History</title>
 
     <style>
         body {
@@ -116,14 +116,14 @@
 
 <div class="container">
 
-    <h1>News History</h1>
+    <h1>History Event History</h1>
 
-    <p>Previously checked news and their results</p>
+    <p>Previously checked history events and their results</p>
 
     <div class="history-box" id="historyBox">
 
         <div class="empty">
-            No news checked yet.
+            No history event checked yet.
         </div>
 
     </div>
@@ -131,7 +131,7 @@
     <div class="buttons">
 
         <a href="/check" class="back-btn">
-            Back to Check News
+            Back to Check Event
         </a>
 
         <button class="clear-btn" onclick="clearHistory()">
@@ -159,7 +159,7 @@ function loadHistory() {
     if (history.length === 0) {
 
         historyBox.innerHTML =
-            '<div class="empty">No news checked yet.</div>';
+            '<div class="empty">No history event checked yet.</div>';
 
         return;
     }
@@ -189,7 +189,7 @@ function loadHistory() {
         div.innerHTML = `
 
             <div class="news">
-                <strong>News:</strong>
+                <strong>History Event:</strong>
                 ${item.news}
             </div>
 

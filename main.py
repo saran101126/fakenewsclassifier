@@ -14,7 +14,8 @@ from sklearn.metrics import (
 )
 
 app = Flask(__name__)
-app.secret_key = "fake-news-classifier-secret-key"
+
+app.secret_key = "history-event-analysis-secret-key"
 
 
 # =========================================================
@@ -24,7 +25,13 @@ app.secret_key = "fake-news-classifier-secret-key"
 data = pd.read_csv("dataset.csv")
 
 data["text"] = data["text"].astype(str)
-data["label"] = data["label"].astype(str).str.upper().str.strip()
+
+data["label"] = (
+    data["label"]
+    .astype(str)
+    .str.upper()
+    .str.strip()
+)
 
 
 # =========================================================
@@ -70,9 +77,11 @@ y = data["label"].map({
 
 
 # Remove invalid labels
+
 valid_rows = y.notna()
 
 texts = texts[valid_rows]
+
 y = y[valid_rows].astype(int)
 
 
@@ -84,12 +93,14 @@ print("================================")
 print("TF-IDF FEATURE EXTRACTION")
 print("================================")
 
+
 vectorizer = TfidfVectorizer(
     lowercase=True,
     max_features=10000,
     ngram_range=(1, 2),
     stop_words="english"
 )
+
 
 X = vectorizer.fit_transform(texts)
 
@@ -118,14 +129,17 @@ print("================================")
 print("TRAINING CLASSIFICATION MODEL")
 print("================================")
 
+
 model = LogisticRegression(
     max_iter=1000
 )
+
 
 model.fit(
     X_train,
     y_train
 )
+
 
 print("MODEL TRAINING COMPLETED")
 
@@ -136,10 +150,12 @@ print("MODEL TRAINING COMPLETED")
 
 test_prediction = model.predict(X_test)
 
+
 accuracy = accuracy_score(
     y_test,
     test_prediction
 )
+
 
 precision = precision_score(
     y_test,
@@ -147,11 +163,13 @@ precision = precision_score(
     zero_division=0
 )
 
+
 recall = recall_score(
     y_test,
     test_prediction,
     zero_division=0
 )
+
 
 f1 = f1_score(
     y_test,
@@ -164,21 +182,26 @@ print("================================")
 print("MODEL EVALUATION")
 print("================================")
 
+
 print(
     f"Accuracy : {accuracy * 100:.2f}%"
 )
+
 
 print(
     f"Precision: {precision * 100:.2f}%"
 )
 
+
 print(
     f"Recall   : {recall * 100:.2f}%"
 )
 
+
 print(
     f"F1 Score : {f1 * 100:.2f}%"
 )
+
 
 print("================================")
 
@@ -219,10 +242,12 @@ def login():
 
     login_data = request.get_json() or {}
 
+
     username = login_data.get(
         "username",
         ""
     ).strip()
+
 
     password = login_data.get(
         "password",
@@ -230,11 +255,12 @@ def login():
     ).strip()
 
 
-    # Any username and any password are accepted
     if username and password:
 
         session["logged_in"] = True
+
         session["username"] = username
+
 
         return jsonify({
             "success": True,
@@ -249,7 +275,7 @@ def login():
 
 
 # =========================================================
-# CHECK NEWS PAGE
+# CHECK HISTORY EVENT PAGE
 # =========================================================
 
 @app.route("/check")
@@ -259,11 +285,12 @@ def check():
 
         return redirect("/login")
 
+
     return send_file("check.html")
 
 
 # =========================================================
-# PREDICT NEWS
+# PREDICT HISTORY EVENT
 # =========================================================
 
 @app.route("/predict", methods=["POST"])
@@ -273,26 +300,27 @@ def predict():
 
         return jsonify({
             "result": "LOGIN REQUIRED",
-            "reason": "Please login before checking news.",
+            "reason": "Please login before checking.",
             "confidence": "0%"
         })
 
 
     try:
 
-        news_data = request.get_json() or {}
+        event_data = request.get_json() or {}
 
-        news = news_data.get(
+
+        event = event_data.get(
             "news",
             ""
         ).strip()
 
 
-        if news == "":
+        if event == "":
 
             return jsonify({
-                "result": "PLEASE ENTER SOME NEWS",
-                "reason": "Please enter a news article.",
+                "result": "PLEASE ENTER SOME EVENT",
+                "reason": "Please enter a history event.",
                 "confidence": "0%"
             })
 
@@ -301,14 +329,14 @@ def predict():
         # PREPROCESS
         # -------------------------------------------------
 
-        processed_news = preprocess_text(news)
+        processed_event = preprocess_text(event)
 
 
-        if processed_news == "":
+        if processed_event == "":
 
             return jsonify({
-                "result": "INVALID NEWS",
-                "reason": "Please enter meaningful news text.",
+                "result": "INVALID EVENT",
+                "reason": "Please enter meaningful event text.",
                 "confidence": "0%"
             })
 
@@ -317,8 +345,8 @@ def predict():
         # TF-IDF
         # -------------------------------------------------
 
-        news_features = vectorizer.transform(
-            [processed_news]
+        event_features = vectorizer.transform(
+            [processed_event]
         )
 
 
@@ -327,12 +355,12 @@ def predict():
         # -------------------------------------------------
 
         prediction = model.predict(
-            news_features
+            event_features
         )[0]
 
 
         probabilities = model.predict_proba(
-            news_features
+            event_features
         )[0]
 
 
@@ -345,11 +373,11 @@ def predict():
 
         if prediction == 1:
 
-            result = "REAL NEWS"
+            result = "REAL"
 
         else:
 
-            result = "FAKE NEWS"
+            result = "FAKE"
 
 
         # -------------------------------------------------
@@ -358,8 +386,8 @@ def predict():
 
         reason = (
             "The machine learning model classified "
-            "this news as "
-            f"{result.replace(' NEWS', '')} "
+            "this history event as "
+            f"{result} "
             f"with {confidence:.1f}% model confidence."
         )
 
@@ -370,7 +398,9 @@ def predict():
 
         history_data.append({
 
-            "news": news,
+            "event": event,
+
+            "news": event,
 
             "result": result,
 
@@ -379,6 +409,7 @@ def predict():
             "date": datetime.now().strftime(
                 "%d-%m-%Y %I:%M %p"
             )
+
         })
 
 
@@ -393,20 +424,26 @@ def predict():
             "reason": reason,
 
             "confidence": f"{confidence:.1f}%"
+
         })
 
 
     except Exception as e:
 
-        print("PREDICTION ERROR:", str(e))
+        print(
+            "PREDICTION ERROR:",
+            str(e)
+        )
+
 
         return jsonify({
 
             "result": "ERROR",
 
-            "reason": "Unable to process the news.",
+            "reason": "Unable to process the event.",
 
             "confidence": "0%"
+
         }), 500
 
 
@@ -421,6 +458,7 @@ def history():
 
         return redirect("/login")
 
+
     return send_file("history.html")
 
 
@@ -434,6 +472,7 @@ def history_data_route():
     if not session.get("logged_in"):
 
         return jsonify([])
+
 
     return jsonify(history_data)
 
@@ -460,6 +499,7 @@ def clear_history():
         "success": True,
 
         "message": "History cleared"
+
     })
 
 
@@ -474,6 +514,7 @@ def report():
 
         return redirect("/login")
 
+
     return send_file("report.html")
 
 
@@ -487,8 +528,11 @@ def generate_report():
     if not session.get("logged_in"):
 
         return jsonify({
+
             "success": False,
+
             "message": "Login required"
+
         })
 
 
@@ -496,7 +540,9 @@ def generate_report():
     from reportlab.pdfgen import canvas
 
 
-    filename = "fake_news_report.pdf"
+    # PDF FILE NAME
+
+    filename = "history_event_analysis_report.pdf"
 
 
     pdf = canvas.Canvas(
@@ -510,29 +556,35 @@ def generate_report():
     y = height - 50
 
 
-    # TITLE
+    # =====================================================
+    # PDF TITLE
+    # =====================================================
 
     pdf.setFont(
         "Helvetica-Bold",
         18
     )
 
+
     pdf.drawString(
         50,
         y,
-        "Fake News Classification Report"
+        "History Event Analysis Report"
     )
 
 
     y -= 40
 
 
+    # =====================================================
     # DATE
+    # =====================================================
 
     pdf.setFont(
         "Helvetica",
         11
     )
+
 
     pdf.drawString(
         50,
@@ -547,12 +599,15 @@ def generate_report():
     y -= 35
 
 
+    # =====================================================
     # MODEL EVALUATION
+    # =====================================================
 
     pdf.setFont(
         "Helvetica-Bold",
         12
     )
+
 
     pdf.drawString(
         50,
@@ -569,13 +624,16 @@ def generate_report():
         10
     )
 
+
     pdf.drawString(
         50,
         y,
         f"Accuracy: {accuracy * 100:.2f}%"
     )
 
+
     y -= 15
+
 
     pdf.drawString(
         50,
@@ -583,7 +641,9 @@ def generate_report():
         f"Precision: {precision * 100:.2f}%"
     )
 
+
     y -= 15
+
 
     pdf.drawString(
         50,
@@ -591,7 +651,9 @@ def generate_report():
         f"Recall: {recall * 100:.2f}%"
     )
 
+
     y -= 15
+
 
     pdf.drawString(
         50,
@@ -599,20 +661,24 @@ def generate_report():
         f"F1 Score: {f1 * 100:.2f}%"
     )
 
+
     y -= 35
 
 
+    # =====================================================
     # HISTORY
+    # =====================================================
 
     pdf.setFont(
         "Helvetica-Bold",
         12
     )
 
+
     pdf.drawString(
         50,
         y,
-        "News Classification History"
+        "History Event Classification History"
     )
 
 
@@ -626,10 +692,11 @@ def generate_report():
             10
         )
 
+
         pdf.drawString(
             50,
             y,
-            "No news has been checked yet."
+            "No history events have been checked yet."
         )
 
 
@@ -644,10 +711,13 @@ def generate_report():
                 y = height - 50
 
 
+            # RESULT
+
             pdf.setFont(
                 "Helvetica-Bold",
                 11
             )
+
 
             pdf.drawString(
                 50,
@@ -656,13 +726,17 @@ def generate_report():
                 + item["result"]
             )
 
+
             y -= 18
 
+
+            # CONFIDENCE
 
             pdf.setFont(
                 "Helvetica",
                 10
             )
+
 
             pdf.drawString(
                 50,
@@ -671,8 +745,11 @@ def generate_report():
                 + item["confidence"]
             )
 
+
             y -= 18
 
+
+            # DATE
 
             pdf.drawString(
                 50,
@@ -681,19 +758,30 @@ def generate_report():
                 + item["date"]
             )
 
+
             y -= 20
 
 
-            news_text = item["news"]
+            # EVENT TEXT
 
-            words = news_text.split()
+            event_text = item.get(
+                "event",
+                item.get("news", "")
+            )
+
+
+            words = event_text.split()
 
             line = ""
 
 
             for word in words:
 
-                test_line = line + word + " "
+                test_line = (
+                    line +
+                    word +
+                    " "
+                )
 
 
                 if len(test_line) > 90:
@@ -704,9 +792,12 @@ def generate_report():
                         line
                     )
 
+
                     y -= 15
 
+
                     line = word + " "
+
 
                 else:
 
@@ -721,14 +812,23 @@ def generate_report():
                     line
                 )
 
+
                 y -= 15
 
 
             y -= 20
 
 
+    # =====================================================
+    # SAVE PDF
+    # =====================================================
+
     pdf.save()
 
+
+    # =====================================================
+    # DOWNLOAD PDF
+    # =====================================================
 
     return send_file(
         filename,
@@ -756,12 +856,14 @@ if __name__ == "__main__":
 
     import os
 
+
     port = int(
         os.environ.get(
             "PORT",
             5000
         )
     )
+
 
     app.run(
         host="0.0.0.0",
