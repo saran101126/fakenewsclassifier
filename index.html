@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,6 +8,7 @@
     <title>History Event Analysis and Real or Fake</title>
 
     <style>
+
         * {
             box-sizing: border-box;
             margin: 0;
@@ -20,7 +22,8 @@
             overflow-x: hidden;
         }
 
-        /* NAVBAR */
+        /* ================= NAVBAR ================= */
+
         nav {
             height: 80px;
             display: flex;
@@ -52,7 +55,8 @@
             color: #28a9ff;
         }
 
-        /* HERO */
+        /* ================= HERO ================= */
+
         .hero {
             min-height: 650px;
             display: flex;
@@ -88,6 +92,8 @@
             margin-bottom: 35px;
         }
 
+        /* ================= BUTTON ================= */
+
         .get-started {
             display: inline-block;
             padding: 17px 38px;
@@ -106,7 +112,8 @@
             box-shadow: 0 0 35px rgba(0,180,255,0.7);
         }
 
-        /* IMAGE */
+        /* ================= IMAGE ================= */
+
         .hero-image {
             width: 48%;
             display: flex;
@@ -122,7 +129,8 @@
             filter: drop-shadow(0 0 25px rgba(0,170,255,0.25));
         }
 
-        /* FEATURES */
+        /* ================= FEATURES ================= */
+
         .features {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -161,8 +169,10 @@
             font-size: 16px;
         }
 
-        /* ANIMATIONS */
+        /* ================= ANIMATIONS ================= */
+
         @keyframes slideLeft {
+
             from {
                 opacity: 0;
                 transform: translateX(-60px);
@@ -172,9 +182,11 @@
                 opacity: 1;
                 transform: translateX(0);
             }
+
         }
 
         @keyframes fadeUp {
+
             from {
                 opacity: 0;
                 transform: translateY(50px);
@@ -184,9 +196,11 @@
                 opacity: 1;
                 transform: translateY(0);
             }
+
         }
 
         @keyframes floatImage {
+
             0%, 100% {
                 transform: translateY(0);
             }
@@ -194,9 +208,11 @@
             50% {
                 transform: translateY(-12px);
             }
+
         }
 
-        /* MOBILE */
+        /* ================= MOBILE ================= */
+
         @media (max-width: 800px) {
 
             nav {
@@ -238,13 +254,18 @@
                 grid-template-columns: 1fr;
                 padding: 20px;
             }
+
         }
+
     </style>
+
 </head>
+
 
 <body>
 
-    <!-- NAVBAR -->
+    <!-- ================= NAVBAR ================= -->
+
     <nav>
 
         <div class="logo">
@@ -252,96 +273,154 @@
         </div>
 
         <div class="nav-links">
+
             <a href="/">Home</a>
+
             <a href="/login">Login</a>
+
             <a href="/register">Register</a>
+
         </div>
 
     </nav>
 
 
-    <!-- HERO SECTION -->
+    <!-- ================= HERO ================= -->
+
     <section class="hero">
+
+
+        <!-- LEFT SIDE -->
 
         <div class="hero-text">
 
             <h1>
+
                 History Event<br>
+
                 Analysis and<br>
+
                 <span class="real">Real</span> or
+
                 <span class="fake">Fake</span>
+
             </h1>
 
+
             <p>
+
                 Analyze historical events and identify whether
+
                 they are <span class="real">Real</span> or
+
                 <span class="fake">Fake</span> using Machine
+
                 Learning and Artificial Intelligence.
+
             </p>
 
+
             <a href="/login" class="get-started">
+
                 Get Started
+
             </a>
 
         </div>
 
 
-        <!-- PROJECT IMAGE -->
+        <!-- RIGHT SIDE IMAGE -->
+
         <div class="hero-image">
 
-            <img src="{{ url_for('static', filename='hero.png') }}"
+            <img src="/static/hero.png"
                  alt="AI Historical Event Analysis">
 
         </div>
 
+
     </section>
 
 
-    <!-- FEATURES -->
+    <!-- ================= FEATURES ================= -->
+
     <section class="features">
 
+
+        <!-- CARD 1 -->
+
         <div class="card">
 
-            <div class="icon">🧠</div>
+            <div class="icon">
+                🧠
+            </div>
 
-            <h2>AI Powered</h2>
+            <h2>
+                AI Powered
+            </h2>
 
             <p>
+
                 Advanced Machine Learning models analyze
+
                 historical events and news information.
+
             </p>
 
         </div>
 
 
+        <!-- CARD 2 -->
+
         <div class="card">
 
-            <div class="icon">🛡️</div>
+            <div class="icon">
+                🛡️
+            </div>
 
-            <h2>Real or Fake</h2>
+            <h2>
+                Accurate Results
+            </h2>
 
             <p>
-                Get predictions to identify whether an
-                event or news is Real or Fake.
+
+                Get accurate predictions whether
+
+                events are <span class="real">Real</span> or
+
+                <span class="fake">Fake</span>.
+
             </p>
 
         </div>
 
 
+        <!-- CARD 3 -->
+
         <div class="card">
 
-            <div class="icon">⚡</div>
+            <div class="icon">
+                ⚡
+            </div>
 
-            <h2>Instant Analysis</h2>
+            <h2>
+                Instant Analysis
+            </h2>
 
             <p>
+
                 Fast and reliable analysis in just
+
                 a few seconds.
+
             </p>
 
         </div>
+
 
     </section>
 
+
 </body>
+
 </html>
