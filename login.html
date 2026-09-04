@@ -1,93 +1,409 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Fake News Classifier - Login</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Login - History Event Analysis</title>
 
     <style>
-        body {
+
+        * {
             margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
             font-family: Arial, sans-serif;
-            background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+            min-height: 100vh;
+            background: linear-gradient(135deg, #06152e, #0b2c5c, #06234a);
             color: white;
-            text-align: center;
+            overflow: hidden;
         }
 
-        .login-box {
+        /* BACKGROUND GLOW */
+
+        .glow {
+            position: absolute;
             width: 350px;
-            margin: 100px auto;
-            padding: 35px;
-            background: rgba(255,255,255,0.1);
-            border-radius: 15px;
+            height: 350px;
+            background: #008cff;
+            border-radius: 50%;
+            filter: blur(120px);
+            opacity: 0.25;
+            top: 10%;
+            left: 10%;
+            animation: moveGlow 6s infinite alternate;
         }
 
-        input {
-            width: 90%;
-            padding: 12px;
-            margin: 10px;
-            border: none;
-            border-radius: 8px;
+        .glow2 {
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            background: #00d9ff;
+            border-radius: 50%;
+            filter: blur(120px);
+            opacity: 0.18;
+            bottom: 5%;
+            right: 10%;
+            animation: moveGlow2 7s infinite alternate;
+        }
+
+        @keyframes moveGlow {
+            from {
+                transform: translate(0, 0);
+            }
+
+            to {
+                transform: translate(120px, 80px);
+            }
+        }
+
+        @keyframes moveGlow2 {
+            from {
+                transform: translate(0, 0);
+            }
+
+            to {
+                transform: translate(-100px, -70px);
+            }
+        }
+
+        /* NAVBAR */
+
+        nav {
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 7%;
+            border-bottom: 1px solid rgba(255,255,255,0.12);
+            position: relative;
+            z-index: 5;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin-left: 30px;
             font-size: 16px;
         }
 
+        nav a:hover {
+            color: #20a4ff;
+        }
+
+        /* LOGIN AREA */
+
+        .container {
+            min-height: calc(100vh - 80px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .login-box {
+            width: 420px;
+            padding: 45px;
+            background: rgba(255,255,255,0.09);
+            border: 1px solid rgba(255,255,255,0.18);
+            border-radius: 22px;
+            backdrop-filter: blur(18px);
+            box-shadow: 0 25px 70px rgba(0,0,0,0.35);
+            text-align: center;
+            animation: appear 1s ease;
+        }
+
+        @keyframes appear {
+            from {
+                opacity: 0;
+                transform: translateY(35px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ICON */
+
+        .icon {
+            width: 75px;
+            height: 75px;
+            margin: 0 auto 20px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #168cff, #00c6ff);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 35px;
+            box-shadow: 0 0 30px rgba(0,160,255,0.5);
+            animation: float 3s infinite ease-in-out;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-8px);
+            }
+        }
+
+        h1 {
+            font-size: 34px;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: #bcd0e6;
+            margin-bottom: 30px;
+            font-size: 15px;
+        }
+
+        /* INPUTS */
+
+        .input-box {
+            margin-bottom: 18px;
+            text-align: left;
+        }
+
+        .input-box label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 14px;
+            color: #dceaff;
+        }
+
+        .input-box input {
+            width: 100%;
+            padding: 15px;
+            border: 1px solid rgba(255,255,255,0.18);
+            border-radius: 10px;
+            outline: none;
+            background: rgba(255,255,255,0.1);
+            color: white;
+            font-size: 16px;
+        }
+
+        .input-box input::placeholder {
+            color: #aebed0;
+        }
+
+        .input-box input:focus {
+            border-color: #20a4ff;
+            box-shadow: 0 0 15px rgba(32,164,255,0.25);
+        }
+
+        /* BUTTON */
+
         button {
-            padding: 12px 30px;
-            margin-top: 15px;
+            width: 100%;
+            padding: 15px;
+            margin-top: 10px;
             border: none;
-            border-radius: 8px;
+            border-radius: 10px;
+            background: linear-gradient(90deg, #087cff, #00b7ff);
+            color: white;
             font-size: 17px;
             font-weight: bold;
             cursor: pointer;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0,140,255,0.4);
         }
 
         #message {
-            margin-top: 20px;
-            font-weight: bold;
+            margin-top: 18px;
+            min-height: 20px;
+            font-size: 14px;
         }
+
+        /* MOBILE */
+
+        @media (max-width: 600px) {
+
+            nav {
+                padding: 0 20px;
+            }
+
+            nav a {
+                margin-left: 10px;
+                font-size: 13px;
+            }
+
+            .logo {
+                font-size: 18px;
+            }
+
+            .login-box {
+                width: 90%;
+                padding: 30px;
+            }
+        }
+
     </style>
 </head>
 
 <body>
 
-<div class="login-box">
+    <div class="glow"></div>
+    <div class="glow2"></div>
 
-    <h1>Login</h1>
 
-    <input type="text" id="username" placeholder="Enter username">
+    <!-- NAVBAR -->
 
-    <input type="password" id="password" placeholder="Enter password">
+    <nav>
 
-    <button onclick="login()">Login</button>
+        <div class="logo">
+            History Event Analysis
+        </div>
 
-    <div id="message"></div>
+        <div>
+            <a href="/">Home</a>
+            <a href="/login">Login</a>
+        </div>
 
-</div>
+    </nav>
 
-<script>
-async function login() {
 
-    const username = document.getElementById("username").value;
-    const password = document.getElementById("password").value;
+    <!-- LOGIN -->
 
-    const response = await fetch("/login", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-            username: username,
-            password: password
-        })
-    });
+    <div class="container">
 
-    const data = await response.json();
+        <div class="login-box">
 
-    document.getElementById("message").innerText = data.message;
+            <div class="icon">
+                🔐
+            </div>
 
-    if (data.success) {
-        window.location.href = "/check";
-    }
-}
-</script>
+            <h1>Welcome Back</h1>
+
+            <p class="subtitle">
+                Login to analyze historical events
+            </p>
+
+
+            <form id="loginForm">
+
+                <div class="input-box">
+
+                    <label>Username</label>
+
+                    <input
+                        type="text"
+                        id="username"
+                        placeholder="Enter username"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="input-box">
+
+                    <label>Password</label>
+
+                    <input
+                        type="password"
+                        id="password"
+                        placeholder="Enter password"
+                        required
+                    >
+
+                </div>
+
+
+                <button type="submit">
+                    Login
+                </button>
+
+            </form>
+
+
+            <div id="message"></div>
+
+        </div>
+
+    </div>
+
+
+    <script>
+
+        document
+            .getElementById("loginForm")
+            .addEventListener("submit", async function(event) {
+
+                event.preventDefault();
+
+                const username =
+                    document.getElementById("username").value;
+
+                const password =
+                    document.getElementById("password").value;
+
+
+                const response = await fetch("/login", {
+
+                    method: "POST",
+
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+
+                    body: JSON.stringify({
+                        username: username,
+                        password: password
+                    })
+
+                });
+
+
+                const data = await response.json();
+
+
+                const message =
+                    document.getElementById("message");
+
+
+                if (data.success) {
+
+                    message.style.color = "#20e890";
+
+                    message.innerText =
+                        "Login successful!";
+
+                    setTimeout(function() {
+
+                        window.location.href = "/check";
+
+                    }, 700);
+
+                } else {
+
+                    message.style.color = "#ff6b6b";
+
+                    message.innerText =
+                        data.message;
+
+                }
+
+            });
+
+    </script>
 
 </body>
 </html>
