@@ -1,198 +1,148 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>History Event Analysis and Real or Fake</title>
 
     <style>
         * {
             box-sizing: border-box;
+            margin: 0;
+            padding: 0;
         }
 
         body {
-            margin: 0;
             font-family: Arial, sans-serif;
-            background: linear-gradient(135deg, #061a35, #0b3b66, #071c35);
-            background-size: 300% 300%;
-            animation: backgroundMove 10s ease infinite;
+            background: #061b38;
             color: white;
-            text-align: center;
-            min-height: 100vh;
             overflow-x: hidden;
         }
 
-        @keyframes backgroundMove {
-            0% {
-                background-position: 0% 50%;
-            }
-
-            50% {
-                background-position: 100% 50%;
-            }
-
-            100% {
-                background-position: 0% 50%;
-            }
-        }
-
-        /* Navigation */
-
+        /* NAVBAR */
         nav {
-            height: 75px;
+            height: 80px;
             display: flex;
-            justify-content: space-between;
             align-items: center;
-            padding: 0 60px;
-            border-bottom: 1px solid rgba(255,255,255,0.15);
-            background: rgba(0,0,0,0.15);
+            justify-content: space-between;
+            padding: 0 5%;
+            border-bottom: 1px solid rgba(255,255,255,0.12);
+            background: rgba(4, 20, 45, 0.9);
         }
 
         .logo {
-            font-size: 24px;
+            font-size: 25px;
             font-weight: bold;
         }
 
-        .menu a {
+        .nav-links {
+            display: flex;
+            gap: 40px;
+        }
+
+        .nav-links a {
             color: white;
             text-decoration: none;
-            margin-left: 35px;
             font-size: 17px;
             transition: 0.3s;
         }
 
-        .menu a:hover {
-            color: #29a9ff;
+        .nav-links a:hover {
+            color: #28a9ff;
         }
 
-        /* Main */
-
-        .container {
-            max-width: 1100px;
-            margin: auto;
-            padding: 90px 20px;
+        /* HERO */
+        .hero {
+            min-height: 650px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 70px 6%;
+            gap: 40px;
         }
 
-        .container h1 {
-            font-size: 55px;
-            line-height: 1.15;
+        .hero-text {
+            width: 48%;
+            animation: slideLeft 1s ease;
+        }
+
+        .hero-text h1 {
+            font-size: 58px;
+            line-height: 1.1;
             margin-bottom: 25px;
-
-            animation: titleAppear 1.2s ease;
         }
 
-        @keyframes titleAppear {
-            from {
-                opacity: 0;
-                transform: translateY(40px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        .real {
+            color: #20d879;
         }
 
-        .highlight-real {
-            color: #24d878;
-        }
-
-        .highlight-fake {
+        .fake {
             color: #ff3b3b;
         }
 
-        .description {
+        .hero-text p {
             font-size: 20px;
             line-height: 1.7;
-            max-width: 750px;
-            margin: auto;
-            color: #d8e7f5;
-
-            animation: fadeIn 1.8s ease;
+            color: #d7e3f2;
+            margin-bottom: 35px;
         }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-
-            to {
-                opacity: 1;
-            }
-        }
-
-        /* Button */
 
         .get-started {
             display: inline-block;
-            margin-top: 40px;
-            padding: 17px 42px;
-            background: #1685ff;
+            padding: 17px 38px;
+            background: linear-gradient(135deg, #147cff, #00b7ff);
             color: white;
             text-decoration: none;
-            border-radius: 10px;
+            border-radius: 9px;
             font-size: 19px;
             font-weight: bold;
-
-            box-shadow: 0 0 20px rgba(22,133,255,0.5);
+            box-shadow: 0 0 25px rgba(0,150,255,0.35);
             transition: 0.3s;
-
-            animation: buttonAppear 2s ease;
-        }
-
-        @keyframes buttonAppear {
-            from {
-                opacity: 0;
-                transform: scale(0.8);
-            }
-
-            to {
-                opacity: 1;
-                transform: scale(1);
-            }
         }
 
         .get-started:hover {
-            transform: translateY(-5px) scale(1.03);
-            box-shadow: 0 0 35px rgba(22,133,255,0.8);
+            transform: translateY(-5px);
+            box-shadow: 0 0 35px rgba(0,180,255,0.7);
         }
 
-        /* Feature cards */
-
-        .features {
+        /* IMAGE */
+        .hero-image {
+            width: 48%;
             display: flex;
             justify-content: center;
-            gap: 25px;
-            margin-top: 80px;
-            flex-wrap: wrap;
+            animation: floatImage 4s ease-in-out infinite;
+        }
+
+        .hero-image img {
+            width: 100%;
+            max-width: 650px;
+            border-radius: 20px;
+            object-fit: contain;
+            filter: drop-shadow(0 0 25px rgba(0,170,255,0.25));
+        }
+
+        /* FEATURES */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            padding: 20px 6% 70px;
         }
 
         .card {
-            width: 300px;
-            padding: 30px 25px;
-            background: rgba(255,255,255,0.06);
-            border: 1px solid rgba(255,255,255,0.12);
+            padding: 35px 30px;
             border-radius: 18px;
-            backdrop-filter: blur(10px);
+            background: rgba(20, 55, 95, 0.45);
+            border: 1px solid rgba(100,180,255,0.15);
             transition: 0.4s;
-
-            animation: cardAppear 1.5s ease;
-        }
-
-        @keyframes cardAppear {
-            from {
-                opacity: 0;
-                transform: translateY(50px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            animation: fadeUp 1.2s ease;
         }
 
         .card:hover {
             transform: translateY(-10px);
-            border-color: #1685ff;
-            box-shadow: 0 10px 35px rgba(0,0,0,0.3);
+            border-color: #168cff;
+            box-shadow: 0 10px 35px rgba(0,130,255,0.2);
         }
 
         .icon {
@@ -206,14 +156,48 @@
         }
 
         .card p {
-            color: #cbd9e8;
+            color: #c7d8e9;
             line-height: 1.6;
             font-size: 16px;
         }
 
-        /* Mobile */
+        /* ANIMATIONS */
+        @keyframes slideLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-60px);
+            }
 
-        @media (max-width: 700px) {
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes floatImage {
+            0%, 100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-12px);
+            }
+        }
+
+        /* MOBILE */
+        @media (max-width: 800px) {
 
             nav {
                 padding: 0 20px;
@@ -223,42 +207,51 @@
                 font-size: 18px;
             }
 
-            .menu a {
-                margin-left: 12px;
+            .nav-links {
+                gap: 15px;
+            }
+
+            .nav-links a {
                 font-size: 14px;
             }
 
-            .container {
-                padding: 60px 20px;
+            .hero {
+                flex-direction: column;
+                text-align: center;
+                padding: 50px 20px;
             }
 
-            .container h1 {
-                font-size: 38px;
+            .hero-text,
+            .hero-image {
+                width: 100%;
             }
 
-            .description {
+            .hero-text h1 {
+                font-size: 40px;
+            }
+
+            .hero-text p {
                 font-size: 17px;
             }
 
-            .card {
-                width: 100%;
+            .features {
+                grid-template-columns: 1fr;
+                padding: 20px;
             }
         }
-
     </style>
 </head>
 
 <body>
 
-    <!-- Navigation -->
-
+    <!-- NAVBAR -->
     <nav>
 
         <div class="logo">
             History Event Analysis
         </div>
 
-        <div class="menu">
+        <div class="nav-links">
             <a href="/">Home</a>
             <a href="/login">Login</a>
             <a href="/register">Register</a>
@@ -267,78 +260,88 @@
     </nav>
 
 
-    <!-- Main Section -->
+    <!-- HERO SECTION -->
+    <section class="hero">
 
-    <div class="container">
+        <div class="hero-text">
 
-        <h1>
-            History Event<br>
-            Analysis and
-            <span class="highlight-real">Real</span>
-            or
-            <span class="highlight-fake">Fake</span>
-        </h1>
+            <h1>
+                History Event<br>
+                Analysis and<br>
+                <span class="real">Real</span> or
+                <span class="fake">Fake</span>
+            </h1>
 
-        <p class="description">
-            Analyze historical events and identify whether they are
-            <span class="highlight-real">Real</span> or
-            <span class="highlight-fake">Fake</span>
-            using Machine Learning and Artificial Intelligence.
-        </p>
+            <p>
+                Analyze historical events and identify whether
+                they are <span class="real">Real</span> or
+                <span class="fake">Fake</span> using Machine
+                Learning and Artificial Intelligence.
+            </p>
 
-        <a href="/login" class="get-started">
-            Get Started
-        </a>
-
-
-        <!-- Features -->
-
-        <div class="features">
-
-            <div class="card">
-
-                <div class="icon">🤖</div>
-
-                <h2>AI Powered</h2>
-
-                <p>
-                    Advanced Machine Learning technology
-                    analyzes historical events.
-                </p>
-
-            </div>
-
-
-            <div class="card">
-
-                <div class="icon">🛡️</div>
-
-                <h2>Real or Fake</h2>
-
-                <p>
-                    Identify whether the given historical
-                    event is Real or Fake.
-                </p>
-
-            </div>
-
-
-            <div class="card">
-
-                <div class="icon">⚡</div>
-
-                <h2>Instant Analysis</h2>
-
-                <p>
-                    Get quick results from the
-                    historical event analysis system.
-                </p>
-
-            </div>
+            <a href="/login" class="get-started">
+                Get Started
+            </a>
 
         </div>
 
-    </div>
+
+        <!-- PROJECT IMAGE -->
+        <div class="hero-image">
+
+            <img src="{{ url_for('static', filename='hero.png') }}"
+                 alt="AI Historical Event Analysis">
+
+        </div>
+
+    </section>
+
+
+    <!-- FEATURES -->
+    <section class="features">
+
+        <div class="card">
+
+            <div class="icon">🧠</div>
+
+            <h2>AI Powered</h2>
+
+            <p>
+                Advanced Machine Learning models analyze
+                historical events and news information.
+            </p>
+
+        </div>
+
+
+        <div class="card">
+
+            <div class="icon">🛡️</div>
+
+            <h2>Real or Fake</h2>
+
+            <p>
+                Get predictions to identify whether an
+                event or news is Real or Fake.
+            </p>
+
+        </div>
+
+
+        <div class="card">
+
+            <div class="icon">⚡</div>
+
+            <h2>Instant Analysis</h2>
+
+            <p>
+                Fast and reliable analysis in just
+                a few seconds.
+            </p>
+
+        </div>
+
+    </section>
 
 </body>
 </html>
