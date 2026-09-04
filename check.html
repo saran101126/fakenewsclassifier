@@ -1,150 +1,493 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
-    <title>History Event Analysis</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Check Event - History Event Analysis</title>
 
     <style>
-        body {
+
+        * {
             margin: 0;
-            font-family: Arial, sans-serif;
-            background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
-            color: white;
-            text-align: center;
+            padding: 0;
+            box-sizing: border-box;
         }
 
+        body {
+            font-family: Arial, sans-serif;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #06152e, #0b2c5c, #06234a);
+            color: white;
+            overflow-x: hidden;
+        }
+
+        /* BACKGROUND GLOW */
+
+        .glow {
+            position: fixed;
+            width: 350px;
+            height: 350px;
+            background: #008cff;
+            border-radius: 50%;
+            filter: blur(120px);
+            opacity: 0.22;
+            top: 10%;
+            left: 5%;
+            animation: moveGlow 6s infinite alternate;
+            z-index: 0;
+        }
+
+        .glow2 {
+            position: fixed;
+            width: 300px;
+            height: 300px;
+            background: #00d9ff;
+            border-radius: 50%;
+            filter: blur(120px);
+            opacity: 0.18;
+            bottom: 5%;
+            right: 5%;
+            animation: moveGlow2 7s infinite alternate;
+            z-index: 0;
+        }
+
+        @keyframes moveGlow {
+            from {
+                transform: translate(0, 0);
+            }
+
+            to {
+                transform: translate(120px, 80px);
+            }
+        }
+
+        @keyframes moveGlow2 {
+            from {
+                transform: translate(0, 0);
+            }
+
+            to {
+                transform: translate(-100px, -70px);
+            }
+        }
+
+        /* NAVBAR */
+
+        nav {
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 7%;
+            border-bottom: 1px solid rgba(255,255,255,0.12);
+            background: rgba(4,20,45,0.75);
+            position: relative;
+            z-index: 5;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #20a4ff;
+        }
+
+        /* MAIN */
+
         .container {
-            padding: 70px 20px;
+            width: 90%;
+            max-width: 850px;
+            margin: 60px auto;
+            padding: 45px;
+            text-align: center;
+
+            background: rgba(255,255,255,0.08);
+            border: 1px solid rgba(255,255,255,0.16);
+            border-radius: 22px;
+            backdrop-filter: blur(18px);
+
+            box-shadow: 0 25px 70px rgba(0,0,0,0.35);
+
+            position: relative;
+            z-index: 2;
+
+            animation: appear 1s ease;
+        }
+
+        @keyframes appear {
+
+            from {
+                opacity: 0;
+                transform: translateY(35px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+
+        }
+
+        /* ICON */
+
+        .icon {
+            width: 75px;
+            height: 75px;
+            margin: 0 auto 20px;
+
+            border-radius: 50%;
+
+            background: linear-gradient(
+                135deg,
+                #168cff,
+                #00c6ff
+            );
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-size: 34px;
+
+            box-shadow: 0 0 30px rgba(0,160,255,0.45);
+
+            animation: float 3s infinite ease-in-out;
+        }
+
+        @keyframes float {
+
+            0%,100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-8px);
+            }
+
         }
 
         h1 {
-            font-size: 42px;
-            margin-bottom: 15px;
+            font-size: 40px;
+            margin-bottom: 12px;
         }
 
-        p {
-            font-size: 18px;
+        .subtitle {
+            color: #c4d6ea;
+            font-size: 17px;
+            line-height: 1.6;
+            margin-bottom: 30px;
         }
+
+        /* TEXTAREA */
 
         textarea {
-            width: 80%;
-            max-width: 700px;
-            height: 180px;
-            padding: 15px;
-            border-radius: 10px;
-            border: none;
-            font-size: 16px;
-            margin-top: 20px;
+            width: 100%;
+            height: 190px;
+
+            padding: 18px;
+
+            border-radius: 13px;
+
+            border: 1px solid rgba(255,255,255,0.18);
+
+            outline: none;
+
             resize: vertical;
+
+            background: rgba(255,255,255,0.10);
+
+            color: white;
+
+            font-size: 16px;
+
+            font-family: Arial, sans-serif;
+
+            transition: 0.3s;
         }
 
-        button {
-            margin-top: 20px;
-            padding: 14px 30px;
-            font-size: 18px;
+        textarea::placeholder {
+            color: #aebed0;
+        }
+
+        textarea:focus {
+            border-color: #20a4ff;
+
+            box-shadow:
+                0 0 20px rgba(32,164,255,0.25);
+        }
+
+        /* CHECK BUTTON */
+
+        .check-btn {
+            margin-top: 22px;
+
+            padding: 15px 38px;
+
             border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            background: white;
-            color: #203a43;
+
+            border-radius: 10px;
+
+            background: linear-gradient(
+                90deg,
+                #087cff,
+                #00b7ff
+            );
+
+            color: white;
+
+            font-size: 17px;
+
             font-weight: bold;
+
+            cursor: pointer;
+
+            transition: 0.3s;
         }
 
-        button:hover {
-            background: #dddddd;
+        .check-btn:hover {
+            transform: translateY(-3px);
+
+            box-shadow:
+                0 8px 30px rgba(0,140,255,0.4);
         }
 
-        .logout {
-            background: #eeeeee;
-        }
+        /* RESULT */
 
         #result {
             margin-top: 30px;
-            font-size: 28px;
+
+            font-size: 30px;
+
             font-weight: bold;
+
+            min-height: 35px;
         }
 
         #reason {
-            margin-top: 15px;
-            font-size: 17px;
+            margin-top: 12px;
+
+            color: #c8d9ea;
+
+            font-size: 16px;
+
+            line-height: 1.6;
         }
 
-        .history-btn,
-        .report-btn {
+        /* LINKS */
+
+        .buttons {
+            margin-top: 30px;
+
+            display: flex;
+
+            justify-content: center;
+
+            gap: 15px;
+
+            flex-wrap: wrap;
+        }
+
+        .action-btn {
             display: inline-block;
-            margin-top: 20px;
-            padding: 14px 30px;
+
+            padding: 13px 24px;
+
+            border-radius: 9px;
+
             color: white;
+
             text-decoration: none;
-            border-radius: 8px;
+
             font-weight: bold;
+
+            background: rgba(255,255,255,0.10);
+
+            border: 1px solid rgba(255,255,255,0.15);
+
+            transition: 0.3s;
         }
 
-        .history-btn {
-            background: #2196f3;
+        .action-btn:hover {
+            transform: translateY(-3px);
+
+            background: rgba(20,140,255,0.25);
+
+            border-color: #168cff;
         }
 
-        .report-btn {
-            background: #4caf50;
+        .logout {
+            background: rgba(255,80,80,0.15);
         }
 
-        .history-btn:hover {
-            background: #1976d2;
+        .logout:hover {
+            border-color: #ff5555;
+            background: rgba(255,80,80,0.25);
         }
 
-        .report-btn:hover {
-            background: #388e3c;
+        /* MOBILE */
+
+        @media (max-width: 700px) {
+
+            nav {
+                padding: 0 20px;
+            }
+
+            .logo {
+                font-size: 18px;
+            }
+
+            .nav-links {
+                gap: 12px;
+            }
+
+            .nav-links a {
+                font-size: 13px;
+            }
+
+            .container {
+                width: 92%;
+                padding: 30px 20px;
+                margin: 35px auto;
+            }
+
+            h1 {
+                font-size: 30px;
+            }
+
+            .subtitle {
+                font-size: 15px;
+            }
+
+            textarea {
+                height: 160px;
+            }
+
         }
+
     </style>
+
 </head>
+
 
 <body>
 
-<div class="container">
+    <div class="glow"></div>
+    <div class="glow2"></div>
 
-    <h1>History Event Analysis</h1>
 
-    <p>
-        Enter a historical event below to check whether it is Real or Fake.
-    </p>
+    <!-- NAVBAR -->
 
-    <textarea
-        id="news"
-        placeholder="Enter historical event here..."></textarea>
+    <nav>
 
-    <br>
+        <div class="logo">
+            History Event Analysis
+        </div>
 
-    <button onclick="checkNews()">
-        Check Event
-    </button>
+        <div class="nav-links">
 
-    <div id="result"></div>
+            <a href="/">
+                Home
+            </a>
 
-    <div id="reason"></div>
+            <a href="/history">
+                History
+            </a>
 
-    <br>
+            <a href="/report">
+                Report
+            </a>
 
-    <!-- HISTORY -->
-    <a href="/history" class="history-btn">
-        View History Event
-    </a>
+            <a href="/logout">
+                Logout
+            </a>
 
-    <br>
+        </div>
 
-    <!-- REPORT -->
-    <a href="/report" class="report-btn">
-        View Report
-    </a>
+    </nav>
 
-    <br>
 
-    <!-- LOGOUT -->
-    <a href="/logout">
-        <button class="logout">
-            Logout
+    <!-- MAIN -->
+
+    <div class="container">
+
+        <div class="icon">
+            🔍
+        </div>
+
+
+        <h1>
+            Analyze History Event
+        </h1>
+
+
+        <p class="subtitle">
+            Enter a historical event below to check whether
+            it is <b>Real</b> or <b>Fake</b> using
+            Machine Learning.
+        </p>
+
+
+        <textarea
+            id="news"
+            placeholder="Enter historical event here...">
+        </textarea>
+
+
+        <br>
+
+
+        <button
+            class="check-btn"
+            onclick="checkNews()">
+
+            Check Event
+
         </button>
-    </a>
 
-</div>
+
+        <div id="result"></div>
+
+        <div id="reason"></div>
+
+
+        <div class="buttons">
+
+            <a
+                href="/history"
+                class="action-btn">
+
+                📜 View History
+
+            </a>
+
+
+            <a
+                href="/report"
+                class="action-btn">
+
+                📊 View Report
+
+            </a>
+
+        </div>
+
+    </div>
 
 
 <script>
@@ -152,50 +495,98 @@
 async function checkNews() {
 
     const news =
-        document.getElementById("news").value.trim();
+        document
+        .getElementById("news")
+        .value
+        .trim();
+
+
+    const result =
+        document.getElementById("result");
+
+    const reason =
+        document.getElementById("reason");
 
 
     if (news === "") {
 
-        document.getElementById("result").innerText =
-            "PLEASE ENTER SOME HISTORY EVENT";
+        result.innerText =
+            "PLEASE ENTER A HISTORY EVENT";
 
-        document.getElementById("reason").innerText =
+        result.style.color =
+            "#ff6b6b";
+
+        reason.innerText =
             "Please enter a historical event before checking.";
 
         return;
+
     }
+
+
+    result.innerText =
+        "ANALYZING...";
+
+    result.style.color =
+        "#20a4ff";
+
+    reason.innerText =
+        "Machine Learning model is analyzing the event...";
 
 
     try {
 
-        const response = await fetch("/predict", {
+        const response =
+            await fetch("/predict", {
 
-            method: "POST",
+                method: "POST",
 
-            headers: {
-                "Content-Type": "application/json"
-            },
+                headers: {
+                    "Content-Type": "application/json"
+                },
 
-            body: JSON.stringify({
-                news: news
-            })
+                body: JSON.stringify({
+                    news: news
+                })
 
-        });
-
-
-        const data = await response.json();
+            });
 
 
-        document.getElementById("result").innerText =
+        const data =
+            await response.json();
+
+
+        result.innerText =
             data.result;
 
 
-        document.getElementById("reason").innerText =
+        reason.innerText =
             data.reason;
 
 
-        // SAVE HISTORY
+        if (data.result === "REAL") {
+
+            result.style.color =
+                "#20e890";
+
+        }
+
+        else if (data.result === "FAKE") {
+
+            result.style.color =
+                "#ff5555";
+
+        }
+
+        else {
+
+            result.style.color =
+                "#20a4ff";
+
+        }
+
+
+        /* SAVE LOCAL HISTORY */
 
         const history =
             JSON.parse(
@@ -220,12 +611,17 @@ async function checkNews() {
         );
 
 
-    } catch (error) {
+    }
 
-        document.getElementById("result").innerText =
+    catch (error) {
+
+        result.innerText =
             "ERROR";
 
-        document.getElementById("reason").innerText =
+        result.style.color =
+            "#ff5555";
+
+        reason.innerText =
             "Unable to connect to the server.";
 
     }
@@ -234,5 +630,7 @@ async function checkNews() {
 
 </script>
 
+
 </body>
+
 </html>
