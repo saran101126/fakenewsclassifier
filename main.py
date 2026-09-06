@@ -18,81 +18,55 @@ app = Flask(__name__)
 app.secret_key = "history-event-analysis-secret-key"
 
 
-# =========================================================
+# ==========================================
 # LOAD DATASET
-# =========================================================
+# ==========================================
 
 data = pd.read_csv("dataset.csv")
 
 data["text"] = data["text"].astype(str)
-
-data["label"] = (
-    data["label"]
-    .astype(str)
-    .str.upper()
-    .str.strip()
-)
+data["label"] = data["label"].astype(str).str.upper().str.strip()
 
 
-# =========================================================
+# ==========================================
 # TEXT PREPROCESSING
-# =========================================================
+# ==========================================
 
 def preprocess_text(text):
-
     text = str(text).lower()
 
-    text = re.sub(
-        r"http\S+|www\S+|https\S+",
-        " ",
-        text
-    )
+    # Remove URLs
+    text = re.sub(r"http\S+|www\S+|https\S+", " ", text)
 
-    text = re.sub(
-        r"[^a-zA-Z\s]",
-        " ",
-        text
-    )
+    # Keep only alphabets
+    text = re.sub(r"[^a-zA-Z\s]", " ", text)
 
-    text = re.sub(
-        r"\s+",
-        " ",
-        text
-    ).strip()
+    # Remove extra spaces
+    text = re.sub(r"\s+", " ", text).strip()
 
     return text
 
 
 texts = data["text"].apply(preprocess_text)
 
-
-# =========================================================
-# LABEL CONVERSION
-# =========================================================
-
 y = data["label"].map({
     "REAL": 1,
     "FAKE": 0
 })
 
-
-# Remove invalid labels
-
 valid_rows = y.notna()
 
 texts = texts[valid_rows]
-
 y = y[valid_rows].astype(int)
 
 
-# =========================================================
+# ==========================================
 # TF-IDF FEATURE EXTRACTION
-# =========================================================
+# ==========================================
 
 print("================================")
 print("TF-IDF FEATURE EXTRACTION")
 print("================================")
-
 
 vectorizer = TfidfVectorizer(
     lowercase=True,
@@ -101,16 +75,14 @@ vectorizer = TfidfVectorizer(
     stop_words="english"
 )
 
-
 X = vectorizer.fit_transform(texts)
-
 
 print("FEATURE MATRIX:", X.shape)
 
 
-# =========================================================
-# TRAIN / TEST SPLIT
-# =========================================================
+# ==========================================
+# TRAIN TEST SPLIT
+# ==========================================
 
 X_train, X_test, y_train, y_test = train_test_split(
     X,
@@ -121,41 +93,33 @@ X_train, X_test, y_train, y_test = train_test_split(
 )
 
 
-# =========================================================
-# LOGISTIC REGRESSION CLASSIFICATION MODEL
-# =========================================================
+# ==========================================
+# MODEL TRAINING
+# ==========================================
 
 print("================================")
 print("TRAINING CLASSIFICATION MODEL")
 print("================================")
 
-
 model = LogisticRegression(
     max_iter=1000
 )
 
-
-model.fit(
-    X_train,
-    y_train
-)
-
+model.fit(X_train, y_train)
 
 print("MODEL TRAINING COMPLETED")
 
 
-# =========================================================
+# ==========================================
 # MODEL EVALUATION
-# =========================================================
+# ==========================================
 
 test_prediction = model.predict(X_test)
-
 
 accuracy = accuracy_score(
     y_test,
     test_prediction
 )
-
 
 precision = precision_score(
     y_test,
@@ -163,13 +127,11 @@ precision = precision_score(
     zero_division=0
 )
 
-
 recall = recall_score(
     y_test,
     test_prediction,
     zero_division=0
 )
-
 
 f1 = f1_score(
     y_test,
@@ -182,91 +144,67 @@ print("================================")
 print("MODEL EVALUATION")
 print("================================")
 
-
-print(
-    f"Accuracy : {accuracy * 100:.2f}%"
-)
-
-
-print(
-    f"Precision: {precision * 100:.2f}%"
-)
-
-
-print(
-    f"Recall   : {recall * 100:.2f}%"
-)
-
-
-print(
-    f"F1 Score : {f1 * 100:.2f}%"
-)
-
+print(f"Accuracy : {accuracy * 100:.2f}%")
+print(f"Precision: {precision * 100:.2f}%")
+print(f"Recall   : {recall * 100:.2f}%")
+print(f"F1 Score : {f1 * 100:.2f}%")
 
 print("================================")
 
 
-# =========================================================
+# ==========================================
 # HISTORY
-# =========================================================
+# ==========================================
 
 history_data = []
 
 
-# =========================================================
-# HOME PAGE
-# =========================================================
+# ==========================================
+# HOME
+# ==========================================
 
 @app.route("/")
 def home():
-
     return send_file("index.html")
 
 
-# =========================================================
+# ==========================================
 # LOGIN PAGE
-# =========================================================
+# ==========================================
 
 @app.route("/login")
 def login_page():
-
     return send_file("login.html")
 
 
-# =========================================================
+# ==========================================
 # LOGIN
-# =========================================================
+# ==========================================
 
 @app.route("/login", methods=["POST"])
 def login():
 
     login_data = request.get_json() or {}
 
-
     username = login_data.get(
         "username",
         ""
     ).strip()
-
 
     password = login_data.get(
         "password",
         ""
     ).strip()
 
-
     if username and password:
 
         session["logged_in"] = True
-
         session["username"] = username
-
 
         return jsonify({
             "success": True,
             "message": "Login successful"
         })
-
 
     return jsonify({
         "success": False,
@@ -274,28 +212,27 @@ def login():
     })
 
 
-# =========================================================
-# CHECK HISTORY EVENT PAGE
-# =========================================================
+# ==========================================
+# CHECK PAGE
+# ==========================================
 
 @app.route("/check")
 def check():
 
     if not session.get("logged_in"):
-
         return redirect("/login")
-
 
     return send_file("check.html")
 
 
-# =========================================================
-# PREDICT HISTORY EVENT
-# =========================================================
+# ==========================================
+# PREDICTION
+# ==========================================
 
 @app.route("/predict", methods=["POST"])
 def predict():
 
+    # Check login
     if not session.get("logged_in"):
 
         return jsonify({
@@ -309,12 +246,15 @@ def predict():
 
         event_data = request.get_json() or {}
 
-
         event = event_data.get(
             "news",
             ""
         ).strip()
 
+
+        # ----------------------------------
+        # EMPTY INPUT
+        # ----------------------------------
 
         if event == "":
 
@@ -325,9 +265,9 @@ def predict():
             })
 
 
-        # -------------------------------------------------
+        # ----------------------------------
         # PREPROCESS
-        # -------------------------------------------------
+        # ----------------------------------
 
         processed_event = preprocess_text(event)
 
@@ -341,60 +281,101 @@ def predict():
             })
 
 
-        # -------------------------------------------------
-        # TF-IDF
-        # -------------------------------------------------
+        # ----------------------------------
+        # TF-IDF TRANSFORMATION
+        # ----------------------------------
 
         event_features = vectorizer.transform(
             [processed_event]
         )
 
 
-        # -------------------------------------------------
-        # PREDICTION
-        # -------------------------------------------------
+        # ----------------------------------
+        # CHECK INPUT SIMILARITY
+        # ----------------------------------
+
+        similarity_scores = event_features.dot(
+            X_train.T
+        )
+
+        max_similarity = similarity_scores.max()
+
+
+        # ==================================
+        # NO RESULT THRESHOLD
+        # ==================================
+
+        # If the input is very different
+        # from the training data,
+        # don't force REAL / FAKE prediction.
+
+        NO_RESULT_THRESHOLD = 0.15
+
+
+        if max_similarity < NO_RESULT_THRESHOLD:
+
+            return jsonify({
+
+                "result": "NO RESULT",
+
+                "reason":
+                    "This event is not sufficiently "
+                    "similar to the trained dataset. "
+                    "Please enter a history event "
+                    "related to the available dataset.",
+
+                "confidence": "0%"
+
+            })
+
+
+        # ----------------------------------
+        # MODEL PREDICTION
+        # ----------------------------------
 
         prediction = model.predict(
             event_features
         )[0]
 
 
+        # ----------------------------------
+        # CONFIDENCE
+        # ----------------------------------
+
         probabilities = model.predict_proba(
             event_features
         )[0]
 
-
         confidence = max(probabilities) * 100
 
 
-        # -------------------------------------------------
+        # ----------------------------------
         # RESULT
-        # -------------------------------------------------
+        # ----------------------------------
 
-        if prediction == 1:
-
-            result = "REAL"
-
-        else:
-
-            result = "FAKE"
-
-
-        # -------------------------------------------------
-        # REASON
-        # -------------------------------------------------
-
-        reason = (
-            "The machine learning model classified "
-            "this history event as "
-            f"{result} "
-            f"with {confidence:.1f}% model confidence."
+        result = (
+            "REAL"
+            if prediction == 1
+            else "FAKE"
         )
 
 
-        # -------------------------------------------------
+        reason = (
+
+            "The machine learning model "
+            "classified this history event as "
+
+            f"{result} "
+
+            f"with {confidence:.1f}% "
+            "model confidence."
+
+        )
+
+
+        # ----------------------------------
         # SAVE HISTORY
-        # -------------------------------------------------
+        # ----------------------------------
 
         history_data.append({
 
@@ -404,18 +385,20 @@ def predict():
 
             "result": result,
 
-            "confidence": f"{confidence:.1f}%",
+            "confidence":
+                f"{confidence:.1f}%",
 
-            "date": datetime.now().strftime(
-                "%d-%m-%Y %I:%M %p"
-            )
+            "date":
+                datetime.now().strftime(
+                    "%d-%m-%Y %I:%M %p"
+                )
 
         })
 
 
-        # -------------------------------------------------
-        # RESPONSE
-        # -------------------------------------------------
+        # ----------------------------------
+        # RETURN RESULT
+        # ----------------------------------
 
         return jsonify({
 
@@ -423,7 +406,8 @@ def predict():
 
             "reason": reason,
 
-            "confidence": f"{confidence:.1f}%"
+            "confidence":
+                f"{confidence:.1f}%"
 
         })
 
@@ -435,36 +419,34 @@ def predict():
             str(e)
         )
 
-
         return jsonify({
 
             "result": "ERROR",
 
-            "reason": "Unable to process the event.",
+            "reason":
+                "Unable to process the event.",
 
             "confidence": "0%"
 
         }), 500
 
 
-# =========================================================
+# ==========================================
 # HISTORY PAGE
-# =========================================================
+# ==========================================
 
 @app.route("/history")
 def history():
 
     if not session.get("logged_in"):
-
         return redirect("/login")
-
 
     return send_file("history.html")
 
 
-# =========================================================
+# ==========================================
 # HISTORY DATA
-# =========================================================
+# ==========================================
 
 @app.route("/history-data")
 def history_data_route():
@@ -473,13 +455,12 @@ def history_data_route():
 
         return jsonify([])
 
-
     return jsonify(history_data)
 
 
-# =========================================================
+# ==========================================
 # CLEAR HISTORY
-# =========================================================
+# ==========================================
 
 @app.route("/clear-history", methods=["POST"])
 def clear_history():
@@ -498,29 +479,28 @@ def clear_history():
 
         "success": True,
 
-        "message": "History cleared"
+        "message":
+            "History cleared"
 
     })
 
 
-# =========================================================
+# ==========================================
 # REPORT PAGE
-# =========================================================
+# ==========================================
 
 @app.route("/report")
 def report():
 
     if not session.get("logged_in"):
-
         return redirect("/login")
-
 
     return send_file("report.html")
 
 
-# =========================================================
+# ==========================================
 # GENERATE PDF REPORT
-# =========================================================
+# ==========================================
 
 @app.route("/generate-report")
 def generate_report():
@@ -531,7 +511,8 @@ def generate_report():
 
             "success": False,
 
-            "message": "Login required"
+            "message":
+                "Login required"
 
         })
 
@@ -540,9 +521,9 @@ def generate_report():
     from reportlab.pdfgen import canvas
 
 
-    # PDF FILE NAME
-
-    filename = "history_event_analysis_report.pdf"
+    filename = (
+        "history_event_analysis_report.pdf"
+    )
 
 
     pdf = canvas.Canvas(
@@ -553,18 +534,18 @@ def generate_report():
 
     width, height = A4
 
+
     y = height - 50
 
 
-    # =====================================================
-    # PDF TITLE
-    # =====================================================
+    # ----------------------------------
+    # TITLE
+    # ----------------------------------
 
     pdf.setFont(
         "Helvetica-Bold",
         18
     )
-
 
     pdf.drawString(
         50,
@@ -576,38 +557,39 @@ def generate_report():
     y -= 40
 
 
-    # =====================================================
+    # ----------------------------------
     # DATE
-    # =====================================================
+    # ----------------------------------
 
     pdf.setFont(
         "Helvetica",
         11
     )
 
-
     pdf.drawString(
+
         50,
         y,
+
         "Generated: "
         + datetime.now().strftime(
             "%d-%m-%Y %I:%M %p"
         )
+
     )
 
 
     y -= 35
 
 
-    # =====================================================
+    # ----------------------------------
     # MODEL EVALUATION
-    # =====================================================
+    # ----------------------------------
 
     pdf.setFont(
         "Helvetica-Bold",
         12
     )
-
 
     pdf.drawString(
         50,
@@ -631,7 +613,6 @@ def generate_report():
         f"Accuracy: {accuracy * 100:.2f}%"
     )
 
-
     y -= 15
 
 
@@ -641,7 +622,6 @@ def generate_report():
         f"Precision: {precision * 100:.2f}%"
     )
 
-
     y -= 15
 
 
@@ -650,7 +630,6 @@ def generate_report():
         y,
         f"Recall: {recall * 100:.2f}%"
     )
-
 
     y -= 15
 
@@ -665,15 +644,14 @@ def generate_report():
     y -= 35
 
 
-    # =====================================================
-    # HISTORY
-    # =====================================================
+    # ----------------------------------
+    # HISTORY TITLE
+    # ----------------------------------
 
     pdf.setFont(
         "Helvetica-Bold",
         12
     )
-
 
     pdf.drawString(
         50,
@@ -685,6 +663,10 @@ def generate_report():
     y -= 25
 
 
+    # ----------------------------------
+    # NO HISTORY
+    # ----------------------------------
+
     if not history_data:
 
         pdf.setFont(
@@ -692,13 +674,20 @@ def generate_report():
             10
         )
 
-
         pdf.drawString(
+
             50,
             y,
-            "No history events have been checked yet."
+
+            "No history events have "
+            "been checked yet."
+
         )
 
+
+    # ----------------------------------
+    # HISTORY ITEMS
+    # ----------------------------------
 
     else:
 
@@ -711,26 +700,24 @@ def generate_report():
                 y = height - 50
 
 
-            # RESULT
-
             pdf.setFont(
                 "Helvetica-Bold",
                 11
             )
 
-
             pdf.drawString(
+
                 50,
                 y,
+
                 "Result: "
                 + item["result"]
+
             )
 
 
             y -= 18
 
-
-            # CONFIDENCE
 
             pdf.setFont(
                 "Helvetica",
@@ -739,38 +726,46 @@ def generate_report():
 
 
             pdf.drawString(
+
                 50,
                 y,
+
                 "Confidence: "
                 + item["confidence"]
+
             )
 
 
             y -= 18
 
 
-            # DATE
-
             pdf.drawString(
+
                 50,
                 y,
+
                 "Date: "
                 + item["date"]
+
             )
 
 
             y -= 20
 
 
-            # EVENT TEXT
-
             event_text = item.get(
+
                 "event",
-                item.get("news", "")
+                item.get(
+                    "news",
+                    ""
+                )
+
             )
 
 
             words = event_text.split()
+
 
             line = ""
 
@@ -778,9 +773,9 @@ def generate_report():
             for word in words:
 
                 test_line = (
-                    line +
-                    word +
-                    " "
+                    line
+                    + word
+                    + " "
                 )
 
 
@@ -792,12 +787,12 @@ def generate_report():
                         line
                     )
 
-
                     y -= 15
 
-
-                    line = word + " "
-
+                    line = (
+                        word
+                        + " "
+                    )
 
                 else:
 
@@ -812,23 +807,18 @@ def generate_report():
                     line
                 )
 
-
                 y -= 15
 
 
             y -= 20
 
 
-    # =====================================================
+    # ----------------------------------
     # SAVE PDF
-    # =====================================================
+    # ----------------------------------
 
     pdf.save()
 
-
-    # =====================================================
-    # DOWNLOAD PDF
-    # =====================================================
 
     return send_file(
         filename,
@@ -836,9 +826,9 @@ def generate_report():
     )
 
 
-# =========================================================
+# ==========================================
 # LOGOUT
-# =========================================================
+# ==========================================
 
 @app.route("/logout")
 def logout():
@@ -848,14 +838,13 @@ def logout():
     return redirect("/login")
 
 
-# =========================================================
-# RUN SERVER
-# =========================================================
+# ==========================================
+# START SERVER
+# ==========================================
 
 if __name__ == "__main__":
 
     import os
-
 
     port = int(
         os.environ.get(
@@ -863,7 +852,6 @@ if __name__ == "__main__":
             5000
         )
     )
-
 
     app.run(
         host="0.0.0.0",

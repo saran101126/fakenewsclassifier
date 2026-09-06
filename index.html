@@ -18,6 +18,7 @@
             background: linear-gradient(135deg, #06152e, #0b2c5c, #06234a);
             color: white;
             min-height: 100vh;
+            overflow-x: hidden;
         }
 
         /* NAVBAR */
@@ -29,22 +30,29 @@
             justify-content: space-between;
             padding: 0 6%;
             border-bottom: 1px solid rgba(255,255,255,0.12);
+            background: rgba(3, 18, 40, 0.45);
+            backdrop-filter: blur(10px);
+            position: relative;
+            z-index: 10;
         }
 
         .logo {
             font-size: 24px;
             font-weight: bold;
+            letter-spacing: 0.5px;
         }
 
         nav a {
             color: white;
             text-decoration: none;
-            margin-left: 35px;
-            font-size: 16px;
+            margin-left: 28px;
+            font-size: 15px;
+            transition: 0.3s;
         }
 
         nav a:hover {
             color: #20a4ff;
+            text-shadow: 0 0 10px #20a4ff;
         }
 
         /* HERO */
@@ -56,10 +64,12 @@
             justify-content: space-between;
             padding: 70px 7%;
             gap: 50px;
+            position: relative;
         }
 
         .hero-text {
             width: 50%;
+            animation: slideLeft 1s ease;
         }
 
         .hero-text h1 {
@@ -70,10 +80,12 @@
 
         .real {
             color: #20e890;
+            text-shadow: 0 0 15px rgba(32,232,144,0.4);
         }
 
         .fake {
             color: #ff4d4d;
+            text-shadow: 0 0 15px rgba(255,77,77,0.4);
         }
 
         .hero-text p {
@@ -83,20 +95,25 @@
             margin-bottom: 35px;
         }
 
+        /* BUTTON */
+
         .btn {
             display: inline-block;
-            padding: 16px 32px;
+            padding: 15px 30px;
             background: #168cff;
             color: white;
             text-decoration: none;
             border-radius: 8px;
-            font-size: 18px;
+            font-size: 17px;
             font-weight: bold;
             box-shadow: 0 8px 25px rgba(0,140,255,0.35);
+            transition: 0.3s;
         }
 
         .btn:hover {
             background: #0877dd;
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px rgba(0,140,255,0.55);
         }
 
         /* AI ILLUSTRATION */
@@ -108,6 +125,7 @@
             align-items: center;
             justify-content: center;
             position: relative;
+            animation: slideRight 1s ease;
         }
 
         .glow {
@@ -118,13 +136,17 @@
             border-radius: 50%;
             filter: blur(100px);
             opacity: 0.25;
+            animation: pulseGlow 3s infinite ease-in-out;
         }
 
         .ai-box {
             position: relative;
             width: 360px;
             height: 360px;
+            animation: float 4s infinite ease-in-out;
         }
+
+        /* AI BRAIN */
 
         .brain {
             position: absolute;
@@ -140,12 +162,15 @@
             justify-content: center;
             font-size: 55px;
             font-weight: bold;
+            animation: brainPulse 2s infinite ease-in-out;
         }
 
         .brain::before {
             content: "AI";
             color: white;
         }
+
+        /* BOOK */
 
         .book {
             position: absolute;
@@ -170,6 +195,8 @@
             border-radius: 8px;
         }
 
+        /* SCROLL */
+
         .scroll {
             position: absolute;
             bottom: 10px;
@@ -192,6 +219,8 @@
             font-size: 18px;
         }
 
+        /* SEARCH GLASS */
+
         .glass {
             position: absolute;
             left: 15px;
@@ -202,6 +231,7 @@
             border-radius: 50%;
             background: rgba(30,170,255,0.25);
             box-shadow: 0 0 25px #22aaff;
+            animation: searchMove 3s infinite ease-in-out;
         }
 
         .glass::after {
@@ -216,12 +246,15 @@
             border-radius: 10px;
         }
 
+        /* CHECK / CROSS */
+
         .check {
             position: absolute;
             right: -5px;
             top: 190px;
             color: #20e890;
             font-size: 45px;
+            animation: checkPop 2s infinite ease-in-out;
         }
 
         .cross {
@@ -230,6 +263,7 @@
             top: 250px;
             color: #ff4d4d;
             font-size: 45px;
+            animation: crossPop 2s infinite ease-in-out;
         }
 
         /* FEATURES */
@@ -246,6 +280,15 @@
             border: 1px solid rgba(255,255,255,0.12);
             border-radius: 18px;
             padding: 30px;
+            transition: 0.4s;
+            animation: cardUp 1s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            background: rgba(25,75,135,0.75);
+            box-shadow: 0 15px 35px rgba(0,140,255,0.2);
+            border-color: rgba(32,164,255,0.5);
         }
 
         .card-icon {
@@ -263,16 +306,120 @@
             line-height: 1.6;
         }
 
+        /* ANIMATIONS */
+
+        @keyframes slideLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-60px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes slideRight {
+            from {
+                opacity: 0;
+                transform: translateX(60px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-15px);
+            }
+        }
+
+        @keyframes pulseGlow {
+            0%, 100% {
+                transform: scale(1);
+                opacity: 0.2;
+            }
+
+            50% {
+                transform: scale(1.15);
+                opacity: 0.35;
+            }
+        }
+
+        @keyframes brainPulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.05);
+            }
+        }
+
+        @keyframes searchMove {
+            0%, 100% {
+                transform: translate(0, 0);
+            }
+
+            50% {
+                transform: translate(8px, -8px);
+            }
+        }
+
+        @keyframes checkPop {
+            0%, 100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.2);
+            }
+        }
+
+        @keyframes crossPop {
+            0%, 100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.2);
+            }
+        }
+
+        @keyframes cardUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
         /* MOBILE */
 
         @media (max-width: 850px) {
 
             nav {
-                padding: 0 25px;
+                height: auto;
+                padding: 20px 25px;
+                flex-direction: column;
+                gap: 15px;
             }
 
             nav a {
-                margin-left: 12px;
+                margin-left: 10px;
+                margin-right: 10px;
                 font-size: 14px;
             }
 
@@ -290,8 +437,13 @@
                 font-size: 42px;
             }
 
+            .hero-text p {
+                font-size: 17px;
+            }
+
             .illustration {
                 width: 100%;
+                transform: scale(0.85);
             }
 
             .features {
@@ -307,15 +459,25 @@
     <!-- NAVBAR -->
 
     <nav>
+
         <div class="logo">
             History Event Analysis
         </div>
 
         <div>
+
             <a href="/">Home</a>
+
             <a href="/login">Login</a>
-            <a href="/login">Register</a>
+
+            <a href="/check">Check Event</a>
+
+            <a href="/history">View History</a>
+
+            <a href="/report">View Report</a>
+
         </div>
+
     </nav>
 
 
@@ -328,7 +490,9 @@
             <h1>
                 History Event<br>
                 Analysis and<br>
-                <span class="real">Real</span> or
+
+                <span class="real">Real</span>
+                or
                 <span class="fake">Fake</span>
             </h1>
 
@@ -339,14 +503,14 @@
                 Learning and Artificial Intelligence.
             </p>
 
-            <a href="/login" class="btn">
-                Get Started
+            <a href="/check" class="btn">
+                Check Event
             </a>
 
         </div>
 
 
-        <!-- CODING BASED ILLUSTRATION -->
+        <!-- AI ILLUSTRATION -->
 
         <div class="illustration">
 
@@ -393,13 +557,13 @@
 
         <div class="card">
 
-            <div class="card-icon">🛡️</div>
+            <div class="card-icon">📜</div>
 
-            <h3>Accurate Results</h3>
+            <h3>History Analysis</h3>
 
             <p>
-                Get machine learning based predictions
-                for historical events.
+                Analyze historical information and identify
+                whether the given event is reliable.
             </p>
 
         </div>
@@ -412,8 +576,8 @@
             <h3>Instant Analysis</h3>
 
             <p>
-                Fast and simple analysis of historical events
-                in just a few seconds.
+                Get fast machine learning based results
+                for historical events.
             </p>
 
         </div>

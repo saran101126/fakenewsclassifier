@@ -1,51 +1,288 @@
 text,label
-"The education department announced new examination dates for government schools.",REAL
-"The railway authority announced additional services during the festival season.",REAL
-"The health ministry launched a public awareness campaign on seasonal diseases.",REAL
-"The university announced the results of its semester examinations.",REAL
-"The weather department issued a rainfall warning for several districts.",REAL
-"The finance department released details of the annual budget.",REAL
-"The transport department announced new safety rules for passengers.",REAL
-"The agriculture department published new crop insurance guidelines.",REAL
-"The public hospital introduced an online appointment booking system.",REAL
-"The election commission published information about voter registration.",REAL
-"The government announced funding for improvements to public hospitals.",REAL
-"The municipal corporation announced a new waste management programme.",REAL
-"The university opened applications for research scholarships.",REAL
-"The science ministry announced grants for renewable energy research.",REAL
-"The government released employment statistics for the current year.",REAL
-"The central bank published its latest economic report.",REAL
-"The education board released the timetable for board examinations.",REAL
-"The transport authority announced changes to several bus routes.",REAL
-"The railway department announced maintenance work on selected routes.",REAL
-"The local administration started repairs on damaged roads.",REAL
-"Scientists published research on solar energy technology.",REAL
-"The university announced a new computer science laboratory.",REAL
-"The health department opened a new medical testing centre.",REAL
-"The agriculture ministry organised training sessions for farmers.",REAL
-"The government launched a campaign promoting water conservation.",REAL
-"The public library announced new membership facilities for students.",REAL
-"The city council approved funding for road improvements.",REAL
-"The education department announced a teacher training programme.",REAL
-"The government announced financial assistance for eligible small businesses.",REAL
-"The meteorological department reported heavy rainfall in several areas.",REAL
-"A social media post claims that every student will receive a free laptop tomorrow.",FAKE
-"A viral message claims that drinking a special juice can cure every disease.",FAKE
-"An online post claims that a phone can charge itself using moonlight.",FAKE
-"A viral article claims that one food can give humans superhuman strength.",FAKE
-"An internet rumour claims that every citizen will receive a free car next week.",FAKE
-"A fake report claims that schools will give every student unlimited marks.",FAKE
-"A viral message claims that ordinary water can instantly become gold.",FAKE
-"An online article claims that a household microwave can create a time machine.",FAKE
-"A social media post claims that humans can become invisible using a new device.",FAKE
-"A viral rumour claims that all internet services will become permanently free.",FAKE
-"A fake report claims that scientists have completely stopped human ageing.",FAKE
-"An online message claims that a normal battery can power a house for one hundred years.",FAKE
-"A viral post claims that one minute of exercise can replace an entire night's sleep.",FAKE
-"A fake article claims that a camera can record events that have not happened yet.",FAKE
-"An internet rumour claims that a television can communicate with people in the future.",FAKE
-"A viral message claims that every mobile phone will automatically receive free money.",FAKE
-"A fake report claims that a machine can control the weather anywhere on Earth.",FAKE
-"An online post claims that ordinary shoes can make people run faster than cars.",FAKE
-"A viral article claims that a single seed can grow into a complete house overnight.",FAKE
-"A fake message claims that all trains will become completely free tomorrow.",FAKE
+"India enacted the Constitution (101st Amendment) Act for implementing GST in 2016.",REAL
+"The GST Council was created in September 2016.",REAL
+"The first GST Council meeting was held in New Delhi in September 2016.",REAL
+"India successfully launched IRNSS-1F on PSLV-C32 on 10 March 2016.",REAL
+"India successfully launched IRNSS-1G on PSLV-C33 on 28 April 2016.",REAL
+"ISRO successfully conducted the first flight test of the Reusable Launch Vehicle Technology Demonstrator in May 2016.",REAL
+"ISRO successfully launched 20 satellites in a single PSLV-C34 mission on 22 June 2016.",REAL
+"India's NavIC navigation satellite constellation was completed with the launch of IRNSS-1G in 2016.",REAL
+"ISRO successfully flight-tested its SCRAMJET engine technology demonstrator in August 2016.",REAL
+"The Indian Parliament passed the Constitutional Amendment Bill related to GST in 2016.",REAL
+"The Monsoon Session of Parliament in 2016 passed the constitutional legislation enabling GST.",REAL
+"India's GST Council began working on recommendations for GST rates and related rules in 2016.",REAL
+"ISRO reported seven successful launch vehicle missions during 2016.",REAL
+"ISRO launched Cartosat-2 Series along with other satellites in the PSLV-C34 mission in 2016.",REAL
+"India's Mars Orbiter Mission completed two years in orbit around Mars in 2016.",REAL
+"India's ASTROSAT completed one year in orbit in 2016.",REAL
+"India successfully launched GSAT-18 in 2016.",REAL
+"India conducted a successful technology demonstration flight of a reusable launch vehicle in 2016.",REAL
+"India conducted a successful SCRAMJET technology demonstration flight in 2016.",REAL
+"The GST constitutional amendment received presidential assent in September 2016.",REAL
+"UNESCO declared Narendra Modi the best Prime Minister in the world in 2016.",FAKE
+"UNESCO declared Jana Gana Mana the best national anthem in the world in 2016.",FAKE
+"UNESCO declared India's 2000 rupee note the best currency in the world in 2016.",FAKE
+"New Indian currency notes released in 2016 contained a secret nano GPS tracking chip.",FAKE
+"New Indian currency notes released in 2016 contained radioactive ink for satellite tracking.",FAKE
+"NCRB reported that 95 percent of rapes in India in 2016 were committed by Muslim men.",FAKE
+"A viral 2016 video showed a police constable explaining a Love Jihad conspiracy in Uttar Pradesh.",FAKE
+"UNESCO officially awarded India the world's best national anthem title in 2016.",FAKE
+"UNESCO officially awarded Narendra Modi the world's best Prime Minister title in 2016.",FAKE
+"India's new 2000 rupee notes in 2016 could be tracked anywhere using satellite GPS technology.",FAKE
+"India implemented the Goods and Services Tax (GST) on 1 July 2017.",REAL
+"India held a midnight parliamentary session to launch GST in June 2017.",REAL
+"India launched 104 satellites in a single PSLV-C37 mission on 15 February 2017.",REAL
+"ISRO successfully launched the South Asia Satellite in May 2017.",REAL
+"India successfully launched the GSLV Mk III-D1 carrying GSAT-19 in June 2017.",REAL
+"India successfully launched the Cartosat-2 series satellite using PSLV-C38 in June 2017.",REAL
+"GST replaced several central and state indirect taxes in India in 2017.",REAL
+"The GST Council approved GST rates including 5 percent, 12 percent, 18 percent and 28 percent in 2017.",REAL
+"Twenty-two Indian states abolished check posts after the GST rollout in July 2017.",REAL
+"The Union Cabinet approved four GST-related bills in March 2017.",REAL
+"ISRO launched GSAT-17 from French Guiana in June 2017.",REAL
+"India's Mars Orbiter Mission completed three years in orbit around Mars in 2017.",REAL
+"AstroSat completed two years in orbit in 2017.",REAL
+"India's PSLV successfully launched 31 satellites in June 2017.",REAL
+"India's PSLV-C37 mission placed 104 satellites into orbit in February 2017.",REAL
+"India launched the South Asia Satellite as part of regional cooperation in 2017.",REAL
+"India launched its heaviest satellite from Indian soil, GSAT-19, in 2017.",REAL
+"India's GST was administered jointly by the Centre and the States after its rollout in 2017.",REAL
+"India established the National Anti-profiteering Authority in 2017.",REAL
+"India moved to a common national market through the GST reform in 2017.",REAL
+"An edited video falsely claimed journalist Ravish Kumar was speaking on behalf of a political party.",FAKE
+"A photo from Guatemala was falsely presented as an incident involving a woman in Andhra Pradesh.",FAKE
+"Old videos were falsely presented as Indian Muslims celebrating Pakistan's victory over India in the 2017 Champions Trophy.",FAKE
+"A video falsely claimed that President Ram Nath Kovind was being mistreated at a wedding.",FAKE
+"A video from Bangladesh was falsely presented as Kashmiri students attacking a CRPF personnel.",FAKE
+"An edited or false claim said Jama Masjid was without electricity because of unpaid bills in 2017.",FAKE
+"A fake claim said Arundhati Roy had stated that millions of Indian soldiers could not defeat militants in Kashmir.",FAKE
+"A false report claimed that Dawood Ibrahim's assets worth Rs 15,000 crore had been seized in the UAE.",FAKE
+"A false claim said President Ram Nath Kovind gained three million new followers in one hour.",FAKE
+"A false report claimed that the Indian Army had immediately retaliated after an incident at the Line of Control in May 2017.",FAKE
+"India successfully launched PSLV-C40 carrying 31 satellites in January 2018.",REAL
+"India successfully launched IRNSS-1I navigation satellite in April 2018.",REAL
+"India successfully launched GSAT-6A in March 2018.",REAL
+"ISRO successfully conducted the Pad Abort Test for the Gaganyaan programme in July 2018.",REAL
+"India announced the Gaganyaan human spaceflight programme on 15 August 2018.",REAL
+"India successfully launched GSAT-29 using GSLV Mk III-D2 in November 2018.",REAL
+"India successfully launched HysIS and 30 customer satellites using PSLV-C43 in November 2018.",REAL
+"India successfully launched GSAT-11 from French Guiana in December 2018.",REAL
+"India successfully launched GSAT-7A using GSLV-F11 in December 2018.",REAL
+"India introduced the nationwide e-way bill system for interstate movement of goods in April 2018.",REAL
+"Photoshopped picture falsely showed Narendra Modi in a misleading context.",FAKE
+"A photoshopped image falsely showed Narendra Modi wearing a skull cap.",FAKE
+"A photoshopped image falsely showed the Statue of Unity in a misleading way.",FAKE
+"A false image claimed Rahul Gandhi was watching inappropriate content on his smartphone.",FAKE
+"A fake message claimed Gurugram policemen planted drugs in a car trunk.",FAKE
+"A false claim said Indian currency was being printed in China.",FAKE
+"A fake image falsely claimed that the Pakistani Prime Minister was strip-searched at a US airport.",FAKE
+"A fake image falsely showed a Pakistani flag at a Congress rally in India.",FAKE
+"A doctored video falsely showed people shouting Pakistan Zindabad at a Congress rally.",FAKE
+"A false claim said Kamal Nath had been former Prime Minister Rajiv Gandhi's driver.",FAKE
+"A false claim said 56 women died after using sanitary pads.",FAKE
+"A false claim said wearing a black bra causes breast cancer.",FAKE
+"A false report claimed that Nirav Modi had been arrested in Hong Kong.",FAKE
+"A false claim circulated an old unrelated photograph as an attack on Hindu women in West Bengal.",FAKE
+"A false claim said a viral video showed a recent incident when it was actually from March 2018.",FAKE
+"India successfully launched GSAT-31 from French Guiana in February 2019.",REAL
+"India successfully launched PSLV-C44 carrying Microsat-R and Kalamsat-V2 in January 2019.",REAL
+"ISRO successfully launched EMISAT and 28 customer satellites using PSLV-C45 in April 2019.",REAL
+"India successfully launched RISAT-2B using PSLV-C46 in May 2019.",REAL
+"India successfully launched Chandrayaan-2 using GSLV MkIII-M1 on 22 July 2019.",REAL
+"Chandrayaan-2 successfully entered lunar orbit on 20 August 2019.",REAL
+"Vikram lander separated from the Chandrayaan-2 orbiter on 2 September 2019.",REAL
+"ISRO successfully launched Cartosat-3 and 13 commercial satellites in November 2019.",REAL
+"ISRO successfully launched RISAT-2BR1 and nine commercial satellites in December 2019.",REAL
+"ISRO conducted the first meeting of the Gaganyaan National Advisory Council in June 2019.",REAL
+" A fake newspaper clipping claimed that Narendra Modi's family blamed him for his father's death.",FAKE
+"A fake quote was attributed to Yogi Adityanath about setting the country on fire.",FAKE
+"A false claim said PM Narendra Modi spent Rs 80 lakh per month on makeup.",FAKE
+"A fake newspaper clipping falsely attributed a political statement to Wing Commander Abhinandan Varthaman.",FAKE
+"A false claim said multiple BJP candidates received exactly the same number of votes in the 2019 election.",FAKE
+"A false claim said more than six lakh votes for Rahul Gandhi disappeared from Election Commission records.",FAKE
+"An old video was falsely presented as evidence of EVM problems during the 2019 election.",FAKE
+"A fake quote was attributed to Manoj Tiwari about Delhi's mohalla clinics.",FAKE
+"An old photograph was falsely presented as Narendra Modi bowing to the wife of Gautam Adani.",FAKE
+"Unrelated photographs were falsely presented as images of the submerged city of Dwarka.",FAKE
+"A movie still was falsely presented as a photograph of Mahatma Gandhi's assassination.",FAKE
+"A false claim said India had repaid all its loans to the World Bank.",FAKE
+"A fake BBC Hindi tweet claimed that an NDTV OB van was torched during an anti-CAA protest.",FAKE
+"A 2015 video from Bangladesh was falsely presented as a 2019 incident during the CAA protests.",FAKE
+"A false claim said policemen protested against the CAA and NRC in 2019.",FAKE
+"India successfully launched GSAT-30 on 17 January 2020.",REAL
+"India successfully launched EOS-01 and nine customer satellites on 7 November 2020.",REAL
+"India successfully launched CMS-01 using PSLV-C50 on 17 December 2020.",REAL
+"ISRO conducted the ISRO Cyberspace Competitions in 2020.",REAL
+"ISRO signed a scientific collaboration agreement with the University of Texas at Austin in March 2020.",REAL
+"ISRO organised online outreach activities during the COVID-19 lockdown in 2020.",REAL
+"India's AstroSat discovered one of the earliest galaxies in extreme-ultraviolet light in 2020.",REAL
+"Chandrayaan-2 completed one year around the Moon in August 2020.",REAL
+"ISRO established IN-SPACe as part of reforms to promote space activities in 2020.",REAL
+"India's Vikram Sarabhai Centenary Programme concluded in 2020.",REAL
+"A fake WhatsApp message falsely claimed to be an emergency coronavirus advisory from India's Ministry of Health.",FAKE
+"A viral message falsely claimed that keeping the throat moist with warm water could prevent COVID-19 infection.",FAKE
+"A viral message falsely claimed that a UNICEF advisory recommended hot water and sunlight to prevent coronavirus.",FAKE
+"A false claim said alcohol could cure coronavirus infection.",FAKE
+"A false claim said marijuana could cure coronavirus infection.",FAKE
+"A viral audio falsely claimed that 59 people had tested positive for coronavirus in Nagpur.",FAKE
+"A viral audio falsely claimed that a medical team from Sweden was coming to Nagpur to conduct coronavirus testing.",FAKE
+"A false claim said Amit Shah had tested positive for coronavirus in March 2020.",FAKE
+"A false video claimed that Muslims were deliberately sneezing inside a mosque to spread coronavirus.",FAKE
+"A false claim accused a Muslim vegetable vendor of deliberately sprinkling urine on bananas to spread coronavirus.",FAKE
+"A false report claimed that Muslim youths in Karnataka refused COVID-19 testing for religious reasons.",FAKE
+"A false message claimed that the Disaster Management Act banned citizens from posting coronavirus updates on social media.",FAKE
+"A false audio claimed that the Indian government planned to use a COVID-19 vaccine to kill Muslims.",FAKE
+"A fake audio attributed to Dr Devi Shetty falsely advised people not to get tested for coronavirus.",FAKE
+"An unrelated old video was falsely presented as people deliberately spreading coronavirus during the 2020 pandemic.",FAKE
+"India launched its national COVID-19 vaccination programme on 16 January 2021.",REAL
+"India administered COVID-19 vaccines to healthcare and frontline workers during the first phase of the vaccination programme in 2021.",REAL
+"India opened COVID-19 vaccination to all adults aged 18 and above from 1 May 2021.",REAL
+"India provided COVID-19 vaccine doses to States and Union Territories during 2021.",REAL
+"India's CoWIN platform was used to manage COVID-19 vaccination registration and certificates in 2021.",REAL
+"India recorded its highest-ever Olympic medal tally of seven medals at the Tokyo Olympics in 2021.",REAL
+"Neeraj Chopra won India's first Olympic gold medal in athletics at the Tokyo Olympics in 2021.",REAL
+"India's men's hockey team won a bronze medal at the Tokyo Olympics in 2021.",REAL
+"India's Chandrayaan-2 mission continued scientific observations of the Moon during 2021.",REAL
+"ISRO continued preparations for India's Gaganyaan human spaceflight programme during 2021.",REAL
+"A claim said that 5G radiation caused the second wave of COVID-19 in India.",FAKE
+"A video from Mexico was falsely presented as a woman receiving a COVID-19 vaccine with an empty syringe.",FAKE
+"An old video from 2020 was falsely presented as a COVID-19 patient being killed in a Bengaluru hospital.",FAKE
+"A false claim said that a nebulizer could be used as a substitute for an oxygen cylinder.",FAKE
+"A false claim said that holding your breath for 10 seconds could prove that you did not have COVID-19.",FAKE
+"A false claim said that garlic, onion and lemon could cure COVID-19.",FAKE
+"A false claim said that girls should not take a COVID-19 vaccine around their menstrual cycle.",FAKE
+"A fake report claimed that smokers and vegetarians were less vulnerable to COVID-19 infection based on a CSIR study.",FAKE
+"An old ISIS video was falsely presented as footage of the Taliban executing people in Afghanistan in 2021.",FAKE
+"An old ISIS video from 2014 was falsely linked to the 2021 Kabul airport attack.",FAKE
+"Old images were falsely shared as photographs showing the aftermath of the Kabul airport blasts.",FAKE
+"A manipulated image falsely showed Prime Minister Narendra Modi bowing to Nita Ambani.",FAKE
+"A fake Aaj Tak tweet falsely claimed that the BJP had apologised to the Gandhi family.",FAKE
+"An old incident involving fake EVMs was falsely linked to the 2021 West Bengal elections.",FAKE
+"A comedy skit was falsely presented by some media outlets as a real bride slapping her groom.",FAKE
+"ISRO successfully launched the EOS-04 satellite onboard PSLV-C52 on 14 February 2022.",REAL
+"ISRO successfully tested the human-rated HS200 solid rocket booster for the Gaganyaan programme in May 2022.",REAL
+"GSAT-24 communication satellite was successfully launched on an Ariane-5 rocket on 23 June 2022.",REAL
+"ISRO successfully launched PSLV-C53 carrying DS-EO and two other satellites on 30 June 2022.",REAL
+"ISRO successfully demonstrated an Inflatable Aerodynamic Decelerator technology in September 2022.",REAL
+"ISRO successfully launched LVM3-M2 carrying 36 OneWeb satellites on 23 October 2022.",REAL
+"ISRO successfully launched PSLV-C54 carrying EOS-06 and other satellites on 26 November 2022.",REAL
+"ISRO completed a major development test of the Gaganyaan parachute system in November 2022.",REAL
+"ISRO inaugurated the virtual space museum SPARK in 2022.",REAL
+"India's space sector continued development of the Gaganyaan human spaceflight programme during 2022.",REAL
+"Old photographs of Bikram Singh Majithia were falsely presented as recent images after his arrest in 2022.",FAKE
+"A false claim said Prime Minister Narendra Modi stopped the Russia-Ukraine war to evacuate Indian students.",FAKE
+"A cropped video falsely claimed Rahul Gandhi kept his mask on while eating at the Golden Temple.",FAKE
+"A false claim said PM Modi stopped speaking at the World Economic Forum because his teleprompter had malfunctioned.",FAKE
+"An old video of a large crowd in Andhra Pradesh was falsely presented as a crowd at Rahul Gandhi's Bharat Jodo Yatra.",FAKE
+"Photos of injured JNU students were falsely claimed to show students pretending to be injured after the 2022 Ram Navami violence.",FAKE
+"A false claim said Rahul Gandhi performed the Narmada Aarti in the wrong direction during the Bharat Jodo Yatra.",FAKE
+"A photograph of children with a meal was misleadingly presented as proof of a government school mid-day meal in Uttar Pradesh.",FAKE
+"A video of women at a demonstration was falsely presented as footage from anti-hijab protests in Iran.",FAKE
+"A video of a staged wedding incident was falsely presented as a real incident involving a groom and his sister-in-law.",FAKE
+"A false claim said Pakistan Zindabad slogans were raised during a PFI protest in 2022.",FAKE
+"A false claim said a government-owned company gave jobs only to Muslims.",FAKE
+"An optical illusion in a photograph was falsely presented as evidence that Satyendar Jain had been injured in custody.",FAKE
+"An old video was falsely presented as a recent flood incident in Rajasthan.",FAKE
+"An old video of Hima Das winning in 2018 was falsely presented as her winning at the Birmingham Commonwealth Games in 2022.",FAKE
+"LVM3-M3 successfully launched 36 OneWeb satellites on 26 March 2023.",REAL
+"ISRO successfully conducted the Reusable Launch Vehicle Autonomous Landing Mission in April 2023.",REAL
+"PSLV-C55 successfully launched TeLEOS-2 and other satellites on 22 April 2023.",REAL
+"GSLV-F12 successfully launched the NVS-01 navigation satellite on 29 May 2023.",REAL
+"Chandrayaan-3 was successfully launched aboard LVM3-M4 on 14 July 2023.",REAL
+"Chandrayaan-3 successfully entered lunar orbit on 5 August 2023.",REAL
+"Chandrayaan-3 lander Vikram successfully soft-landed on the Moon on 23 August 2023.",REAL
+"Chandrayaan-3 rover Pragyan successfully deployed on the lunar surface in August 2023.",REAL
+"India successfully launched the Aditya-L1 spacecraft on 2 September 2023 to study the Sun.",REAL
+"ISRO successfully conducted the Gaganyaan TV-D1 test flight on 21 October 2023.",REAL
+"Prime Minister Narendra Modi was falsely claimed to be the biggest contender for the Nobel Peace Prize in 2023.",FAKE
+"Dubai was falsely reported to be renaming a district as Hind City as an ode to India.",FAKE
+"A false claim said the Election Commission had banned the use of EVMs in India in 2023.",FAKE
+"A false claim said more than two crore people had protested and forced the Election Commission to ban EVMs.",FAKE
+"A false claim said voters would have money deducted from their bank accounts if they did not vote.",FAKE
+"An old video was falsely presented as showing migrant workers being attacked in Tamil Nadu in 2023.",FAKE
+"An old photograph was falsely presented as showing a recent incident during the Tamil Nadu migrant worker controversy.",FAKE
+"A false claim said Rahul Gandhi's video showed him deliberately making a misleading gesture at a public event.",FAKE
+"An old video was falsely presented as footage from the Manipur violence in 2023.",FAKE
+"Old photographs and videos were falsely presented as showing the 2023 Odisha train accident.",FAKE
+"An old video was falsely presented as footage of the 2023 Israel-Hamas conflict.",FAKE
+"A fake BBC-style video falsely claimed that Ukraine had supplied weapons to Hamas in 2023.",FAKE
+"An old video was falsely presented as Israeli forces capturing a senior Hamas commander in 2023.",FAKE
+"An old video of parachuters was falsely presented as footage of Hamas fighters entering Israel in October 2023.",FAKE
+"An old video of Russian President Vladimir Putin was falsely presented as a statement about the 2023 Israel-Hamas war.",FAKE
+"XPoSat was successfully launched by ISRO aboard PSLV-C58 on 1 January 2024.",REAL
+"Aditya-L1 successfully entered its targeted halo orbit around the Sun-Earth L1 point on 6 January 2024.",REAL
+"INSAT-3DS was successfully launched by ISRO aboard GSLV-F14 on 17 February 2024.",REAL
+"ISRO successfully completed human rating of the CE20 cryogenic engine for the Gaganyaan programme in February 2024.",REAL
+"ISRO conducted the successful RLV-LEX-02 landing experiment in March 2024.",REAL
+"ISRO successfully completed its RLV technology demonstrations through the LEX-03 mission in June 2024.",REAL
+"Aditya-L1 completed its first halo orbit around the Sun-Earth L1 point in July 2024.",REAL
+"ISRO successfully launched the EOS-08 Earth observation satellite aboard SSLV-D3 on 16 August 2024.",REAL
+"India celebrated its first National Space Day on 23 August 2024.",REAL
+"ISRO released Chandrayaan-3 scientific data to the scientific community in August 2024.",REAL
+"VVPAT slips from the 2024 General Election were falsely claimed to have been destroyed in Andhra Pradesh.",FAKE
+"An old 2021 Assam election incident was falsely presented as 171 additional votes being polled in a 2024 polling station.",FAKE
+"A video of mob violence at a Manipur polling station was falsely presented as proof of EVM and VVPAT mismatch in 2024.",FAKE
+"A baseless audio message falsely claimed that a polling official had disabled a ballot unit in Bengaluru during the 2024 election.",FAKE
+"An old post-counting exercise video was falsely presented as evidence of EVM and VVPAT tampering during the 2024 election.",FAKE
+"An old 2017 Bhind video was falsely shared as evidence of EVM and VVPAT problems during the 2024 election.",FAKE
+"A video using a fake EVM was falsely presented as proof that Election Commission EVMs could be hacked.",FAKE
+"A false claim said that 15 lakh EVMs were missing before the 2024 General Election.",FAKE
+"A fake newspaper report claimed that the Election Commission had ordered voting by ballot paper instead of EVMs in the 2024 Lok Sabha election.",FAKE
+"An old image of prosthetic fingers from Japan was falsely presented as evidence of duplicate voting in West Bengal during the 2024 election.",FAKE
+"An old Karnataka election video was falsely presented as a voter destroying an EVM during the 2024 Lok Sabha election.",FAKE
+"A mock-poll video from Assam was falsely presented as evidence of irregularities during the 2024 General Election.",FAKE
+"A fake WhatsApp message falsely claimed to provide the official schedule for the 2024 Lok Sabha election.",FAKE
+"AI-generated videos falsely showed actors Aamir Khan and Ranveer Singh endorsing the Congress party during the 2024 election.",FAKE
+"An old video was falsely presented as showing an election-related incident from the 2024 General Election.",FAKE
+"ISRO successfully launched the NVS-02 navigation satellite aboard GSLV-F15 on 29 January 2025.",REAL
+"ISRO successfully launched the EOS-09 Earth observation satellite aboard PSLV-C61 in May 2025.",REAL
+"ISRO successfully launched the PSLV-C62 mission carrying the EOS-N1 satellite in January 2025.",REAL
+"India hosted the WAVES 2025 World Audio Visual and Entertainment Summit in Mumbai.",REAL
+"India Energy Week 2025 was held in New Delhi from 11 to 14 February 2025.",REAL
+"ISRO continued preparations and testing for the Gaganyaan human spaceflight programme during 2025.",REAL
+"ISRO and NASA supported the Axiom-4 mission that carried Indian astronaut Shubhanshu Shukla to the International Space Station in 2025.",REAL
+"Shubhanshu Shukla became the first Indian to visit the International Space Station in 2025.",REAL
+"India observed the first International Day of Yoga-related national programmes in 2025 as part of its continuing yoga initiatives.",REAL
+"India participated in major international science and technology programmes during 2025.",REAL
+"An old video was falsely presented as the final moments of the Air India flight that crashed in Ahmedabad in June 2025.",FAKE
+"An old video of an aircraft taking off from Heathrow was falsely presented as the Air India plane involved in the Ahmedabad crash.",FAKE
+"An old video from a 2020 Ryanair incident was falsely presented as footage from the 2025 Air India crash.",FAKE
+"An AI-generated image was falsely presented as an authentic photograph of the 2025 Air India crash.",FAKE
+"Footage from a 2023 Nepal plane accident was falsely presented as footage of the 2025 Air India crash.",FAKE
+"A video of a Pakistani paraglider was falsely presented as an Indian fighter pilot who had been shot down in 2025.",FAKE
+"An altered video falsely showed Donald Trump making statements about India and Pakistan during the 2025 conflict.",FAKE
+"Video-game footage was falsely presented as real footage of Indian fighter jets being shot down in 2025.",FAKE
+"AI-generated videos falsely showed senior Indian military officials admitting to heavy Indian casualties during the 2025 conflict.",FAKE
+"Old photographs and videos were falsely presented as showing recent military losses during the India-Pakistan escalation in 2025.",FAKE
+"AI-generated images falsely showed celebrities taking ritual baths at the 2025 Mahakumbh in Prayagraj.",FAKE
+"An AI-generated letter was falsely attributed to Dhirendra Shastri and presented as a prediction about the 2025 Mahakumbh stampede.",FAKE
+"An old video was falsely presented as police beating men for throwing stones at a train travelling to the 2025 Mahakumbh.",FAKE
+"A forged letter was falsely attributed to Arvind Kejriwal and circulated during the 2025 Delhi election campaign.",FAKE
+"False social-media posts claimed that a woman shown practising sword fighting was Delhi Chief Minister Rekha Gupta.",FAKE
+"PSLV-C62 successfully launched the EOS-N1 mission on 12 January 2026.",REAL
+"ISRO inaugurated the START-2026 space science awareness programme on 11 March 2026.",REAL
+"ISRO conducted the second Integrated Air Drop Test for the Gaganyaan programme in 2026.",REAL
+"ISRO conducted testing of a sub-scale thrust chamber for a LOX-Methane engine in January 2026.",REAL
+"ISRO and ESA jointly organised a heliophysics workshop on Aditya-L1 and other missions in 2026.",REAL
+"ISRO released new Aditya-L1 observations related to the effects of a powerful solar storm in 2026.",REAL
+"ISRO and AIIMS New Delhi signed an agreement for cooperation in space medicine and research in 2026.",REAL
+"ISRO conducted the 23rd National Space Science Symposium in Meghalaya in 2026.",REAL
+"ISRO tested an improved version of the first stage of the Small Satellite Launch Vehicle in August 2026.",REAL
+"India celebrated the third National Space Day at Ahmedabad on 23 August 2026.",REAL
+"Skyroot Aerospace successfully launched the Vikram-1 orbital vehicle on its first orbital flight in 2026.",REAL
+"GSLV-F17 successfully launched the EOS-05 Earth observation satellite on 4 September 2026.",REAL
+"An AI-generated video falsely showed India's former army chiefs praising Pakistan's policies during 2026.",FAKE
+"A fabricated video falsely showed S. Jaishankar promoting a financial investment platform in 2026.",FAKE
+"AI-generated videos falsely showed Arvind Kejriwal and Shah Rukh Khan promoting a financial scam in 2026.",FAKE
+"An AI-generated video falsely showed Indian border soldiers being forced to do squats by Chinese military personnel.",FAKE
+"An old video was falsely presented as showing Indian public figures participating in the 2026 protests.",FAKE
+"An unrelated Sikh march was falsely presented as a 2026 protest in India.",FAKE
+"An old video from Canada was falsely linked to protests in India in 2026.",FAKE
+"A fabricated document was falsely circulated to discredit a youth movement in India in 2026.",FAKE
+"A fake Time magazine cover was falsely presented as a genuine 2026 cover featuring an Indian activist.",FAKE
+"An old video was falsely presented as showing Chinese troops crossing into India in 2026.",FAKE
+"An AI-generated video was falsely linked to deadly floods in India in 2026.",FAKE
+"An old temperature graphic was falsely presented as showing a recent Indian heatwave in 2026.",FAKE
+"An old protest video was falsely presented as showing a 2026 medical college examination protest in India.",FAKE
+"A video from a Hindu pilgrimage was falsely presented as showing Chinese troops crossing into India.",FAKE
+"An AI-generated video falsely showed Italian Prime Minister Giorgia Meloni making statements about sharia law in 2026.",FAKE
