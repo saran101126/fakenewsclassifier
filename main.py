@@ -1,6 +1,9 @@
 from flask import Flask, send_file, request, jsonify, session, redirect
 import pandas as pd
 import re
+import json
+import os
+from datetime import datetime
 
 from sklearn.model_selection import train_test_split
 from sklearn.feature_extraction.text import TfidfVectorizer
@@ -27,6 +30,7 @@ data["label"] = data["label"].astype(str).str.upper().str.strip()
 # ========================================
 
 def preprocess_text(text):
+
     text = str(text).lower()
 
     # Remove URLs
@@ -116,18 +120,21 @@ y_pred = model.predict(X_test)
 
 
 accuracy = accuracy_score(y_test, y_pred)
+
 precision = precision_score(
     y_test,
     y_pred,
     pos_label="REAL",
     zero_division=0
 )
+
 recall = recall_score(
     y_test,
     y_pred,
     pos_label="REAL",
     zero_division=0
 )
+
 f1 = f1_score(
     y_test,
     y_pred,
@@ -150,10 +157,44 @@ NO_RESULT_THRESHOLD = 0.20
 
 
 # ========================================
-# HISTORY
+# HISTORY STORAGE
 # ========================================
 
-history_data = []
+HISTORY_FILE = "history.json"
+
+
+def load_history():
+
+    if not os.path.exists(HISTORY_FILE):
+        return []
+
+    try:
+
+        with open(HISTORY_FILE, "r", encoding="utf-8") as file:
+            return json.load(file)
+
+    except Exception:
+
+        return []
+
+
+def save_history():
+
+    with open(
+        HISTORY_FILE,
+        "w",
+        encoding="utf-8"
+    ) as file:
+
+        json.dump(
+            history_data,
+            file,
+            indent=4,
+            ensure_ascii=False
+        )
+
+
+history_data = load_history()
 
 
 # ========================================
@@ -162,6 +203,7 @@ history_data = []
 
 @app.route("/")
 def home():
+
     return send_file("index.html")
 
 
@@ -174,11 +216,20 @@ def login():
 
     if request.method == "POST":
 
-        username = request.form.get("username", "")
-        password = request.form.get("password", "")
+        username = request.form.get(
+            "username",
+            ""
+        )
+
+        password = request.form.get(
+            "password",
+            ""
+        )
 
         if username and password:
+
             session["logged_in"] = True
+
             session["username"] = username
 
             return redirect("/check")
@@ -196,6 +247,7 @@ def login():
 def check():
 
     if not session.get("logged_in"):
+
         return redirect("/login")
 
     return send_file("check.html")
@@ -209,6 +261,7 @@ def check():
 def predict():
 
     if not session.get("logged_in"):
+
         return jsonify({
             "result": "LOGIN REQUIRED",
             "confidence": "0%"
@@ -217,7 +270,9 @@ def predict():
 
     data_received = request.get_json()
 
+
     if not data_received:
+
         return jsonify({
             "result": "NO RESULT",
             "reason": "No event was entered.",
@@ -225,10 +280,14 @@ def predict():
         })
 
 
-    news_text = data_received.get("news", "").strip()
+    news_text = data_received.get(
+        "news",
+        ""
+    ).strip()
 
 
     if not news_text:
+
         return jsonify({
             "result": "NO RESULT",
             "reason": "Please enter a historical event or news.",
@@ -247,14 +306,18 @@ def predict():
     # TF-IDF TRANSFORMATION
     # ========================================
 
-    event_features = vectorizer.transform([clean_input])
+    event_features = vectorizer.transform(
+        [clean_input]
+    )
 
 
     # ========================================
     # SIMILARITY CHECK
     # ========================================
 
-    similarity_scores = event_features.dot(X_train.T)
+    similarity_scores = event_features.dot(
+        X_train.T
+    )
 
     max_similarity = similarity_scores.max()
 
@@ -276,10 +339,14 @@ def predict():
     # MODEL PREDICTION
     # ========================================
 
-    prediction = model.predict(event_features)[0]
+    prediction = model.predict(
+        event_features
+    )[0]
 
 
-    probabilities = model.predict_proba(event_features)[0]
+    probabilities = model.predict_proba(
+        event_features
+    )[0]
 
     confidence = max(probabilities) * 100
 
@@ -288,11 +355,30 @@ def predict():
     # STORE HISTORY
     # ========================================
 
-    history_data.append({
+    history_item = {
+
         "text": news_text,
+
         "result": prediction,
-        "confidence": round(confidence, 2)
-    })
+
+        "confidence": round(
+            confidence,
+            2
+        ),
+
+        "date": datetime.now().strftime(
+            "%d-%m-%Y %I:%M %p"
+        )
+    }
+
+
+    history_data.append(
+        history_item
+    )
+
+
+    # SAVE HISTORY TO FILE
+    save_history()
 
 
     # ========================================
@@ -300,8 +386,11 @@ def predict():
     # ========================================
 
     return jsonify({
+
         "result": prediction,
+
         "confidence": f"{confidence:.2f}%"
+
     })
 
 
@@ -313,6 +402,7 @@ def predict():
 def history():
 
     if not session.get("logged_in"):
+
         return redirect("/login")
 
     return send_file("history.html")
@@ -326,6 +416,7 @@ def history():
 def history_data_route():
 
     if not session.get("logged_in"):
+
         return jsonify([])
 
     return jsonify(history_data)
@@ -335,15 +426,23 @@ def history_data_route():
 # CLEAR HISTORY
 # ========================================
 
-@app.route("/clear-history", methods=["POST"])
+@app.route(
+    "/clear-history",
+    methods=["POST"]
+)
 def clear_history():
 
     global history_data
 
     history_data = []
 
+    save_history()
+
     return jsonify({
-        "message": "History cleared successfully"
+
+        "message":
+        "History cleared successfully"
+
     })
 
 
@@ -355,6 +454,7 @@ def clear_history():
 def report():
 
     if not session.get("logged_in"):
+
         return redirect("/login")
 
     return send_file("report.html")
@@ -368,6 +468,7 @@ def report():
 def generate_report():
 
     if not session.get("logged_in"):
+
         return redirect("/login")
 
 
@@ -378,7 +479,11 @@ def generate_report():
     file_name = "History_Event_Analysis_Report.pdf"
 
 
-    pdf = canvas.Canvas(file_name, pagesize=A4)
+    pdf = canvas.Canvas(
+        file_name,
+        pagesize=A4
+    )
+
 
     width, height = A4
 
@@ -387,7 +492,11 @@ def generate_report():
     # TITLE
     # ========================================
 
-    pdf.setFont("Helvetica-Bold", 18)
+    pdf.setFont(
+        "Helvetica-Bold",
+        18
+    )
+
 
     pdf.drawString(
         50,
@@ -396,7 +505,11 @@ def generate_report():
     )
 
 
-    pdf.setFont("Helvetica", 11)
+    pdf.setFont(
+        "Helvetica",
+        11
+    )
+
 
     y = height - 90
 
@@ -411,7 +524,9 @@ def generate_report():
         f"Model Accuracy: {accuracy * 100:.2f}%"
     )
 
+
     y -= 20
+
 
     pdf.drawString(
         50,
@@ -419,7 +534,9 @@ def generate_report():
         f"Precision: {precision * 100:.2f}%"
     )
 
+
     y -= 20
+
 
     pdf.drawString(
         50,
@@ -427,13 +544,16 @@ def generate_report():
         f"Recall: {recall * 100:.2f}%"
     )
 
+
     y -= 20
+
 
     pdf.drawString(
         50,
         y,
         f"F1 Score: {f1 * 100:.2f}%"
     )
+
 
     y -= 40
 
@@ -442,7 +562,11 @@ def generate_report():
     # HISTORY
     # ========================================
 
-    pdf.setFont("Helvetica-Bold", 13)
+    pdf.setFont(
+        "Helvetica-Bold",
+        13
+    )
+
 
     pdf.drawString(
         50,
@@ -450,9 +574,14 @@ def generate_report():
         "Prediction History"
     )
 
+
     y -= 25
 
-    pdf.setFont("Helvetica", 10)
+
+    pdf.setFont(
+        "Helvetica",
+        10
+    )
 
 
     for item in history_data:
@@ -463,6 +592,11 @@ def generate_report():
 
         confidence = item["confidence"]
 
+        date = item.get(
+            "date",
+            "Date not available"
+        )
+
 
         pdf.drawString(
             50,
@@ -470,13 +604,26 @@ def generate_report():
             f"Result: {result} | Confidence: {confidence}%"
         )
 
+
+        y -= 18
+
+
+        pdf.drawString(
+            50,
+            y,
+            f"Date: {date}"
+        )
+
+
         y -= 18
 
 
         # Split long text
+
         words = text.split()
 
         line = ""
+
 
         for word in words:
 
@@ -517,7 +664,10 @@ def generate_report():
 
             y = height - 50
 
-            pdf.setFont("Helvetica", 10)
+            pdf.setFont(
+                "Helvetica",
+                10
+            )
 
 
     pdf.save()
