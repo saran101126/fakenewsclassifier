@@ -11,6 +11,10 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score
 
 
+# ========================================
+# FLASK APP
+# ========================================
+
 app = Flask(__name__)
 app.secret_key = "fake-news-classifier-secret-key"
 
@@ -22,7 +26,21 @@ app.secret_key = "fake-news-classifier-secret-key"
 data = pd.read_csv("dataset.csv")
 
 data["text"] = data["text"].astype(str)
-data["label"] = data["label"].astype(str).str.upper().str.strip()
+
+data["label"] = (
+    data["label"]
+    .astype(str)
+    .str.upper()
+    .str.strip()
+)
+
+
+print("================================")
+print("FAKE NEWS CLASSIFIER")
+print("================================")
+print("TOTAL NEWS:", len(data))
+print("LABEL COUNTS:")
+print(data["label"].value_counts())
 
 
 # ========================================
@@ -34,18 +52,32 @@ def preprocess_text(text):
     text = str(text).lower()
 
     # Remove URLs
-    text = re.sub(r"http\S+|www\S+|https\S+", "", text)
+    text = re.sub(
+        r"http\S+|www\S+|https\S+",
+        "",
+        text
+    )
 
     # Keep only alphabets and spaces
-    text = re.sub(r"[^a-z\s]", " ", text)
+    text = re.sub(
+        r"[^a-z\s]",
+        " ",
+        text
+    )
 
     # Remove extra spaces
-    text = re.sub(r"\s+", " ", text).strip()
+    text = re.sub(
+        r"\s+",
+        " ",
+        text
+    ).strip()
 
     return text
 
 
-data["clean_text"] = data["text"].apply(preprocess_text)
+data["clean_text"] = data["text"].apply(
+    preprocess_text
+)
 
 
 # ========================================
@@ -75,7 +107,11 @@ vectorizer = TfidfVectorizer(
 
 X_features = vectorizer.fit_transform(X)
 
-print("FEATURE MATRIX:", X_features.shape)
+
+print(
+    "FEATURE MATRIX:",
+    X_features.shape
+)
 
 
 # ========================================
@@ -92,17 +128,24 @@ X_train, X_test, y_train, y_test = train_test_split(
 
 
 # ========================================
-# TRAINING CLASSIFICATION MODEL
+# MODEL TRAINING
 # ========================================
 
 print("================================")
-print("TRAINING CLASSIFICATION MODEL")
+print("MODEL TRAINING")
 print("================================")
 
 
-model = LogisticRegression(max_iter=1000)
+model = LogisticRegression(
+    max_iter=1000
+)
 
-model.fit(X_train, y_train)
+
+model.fit(
+    X_train,
+    y_train
+)
+
 
 print("MODEL TRAINING COMPLETED")
 
@@ -116,10 +159,16 @@ print("MODEL EVALUATION")
 print("================================")
 
 
-y_pred = model.predict(X_test)
+y_pred = model.predict(
+    X_test
+)
 
 
-accuracy = accuracy_score(y_test, y_pred)
+accuracy = accuracy_score(
+    y_test,
+    y_pred
+)
+
 
 precision = precision_score(
     y_test,
@@ -128,12 +177,14 @@ precision = precision_score(
     zero_division=0
 )
 
+
 recall = recall_score(
     y_test,
     y_pred,
     pos_label="REAL",
     zero_division=0
 )
+
 
 f1 = f1_score(
     y_test,
@@ -143,21 +194,33 @@ f1 = f1_score(
 )
 
 
-print(f"Accuracy : {accuracy * 100:.2f}%")
-print(f"Precision: {precision * 100:.2f}%")
-print(f"Recall   : {recall * 100:.2f}%")
-print(f"F1 Score : {f1 * 100:.2f}%")
+print(
+    f"Accuracy : {accuracy * 100:.2f}%"
+)
+
+print(
+    f"Precision: {precision * 100:.2f}%"
+)
+
+print(
+    f"Recall   : {recall * 100:.2f}%"
+)
+
+print(
+    f"F1 Score : {f1 * 100:.2f}%"
+)
 
 
 # ========================================
-# NO RESULT THRESHOLD
+# CONFIDENCE THRESHOLD
 # ========================================
 
-NO_RESULT_THRESHOLD = 0.20
+# 0 means UNCERTAIN will not be displayed.
+LOW_CONFIDENCE_THRESHOLD = 0.0
 
 
 # ========================================
-# HISTORY STORAGE
+# HISTORY
 # ========================================
 
 HISTORY_FILE = "history.json"
@@ -170,7 +233,12 @@ def load_history():
 
     try:
 
-        with open(HISTORY_FILE, "r", encoding="utf-8") as file:
+        with open(
+            HISTORY_FILE,
+            "r",
+            encoding="utf-8"
+        ) as file:
+
             return json.load(file)
 
     except Exception:
@@ -204,14 +272,19 @@ history_data = load_history()
 @app.route("/")
 def home():
 
-    return send_file("index.html")
+    return send_file(
+        "index.html"
+    )
 
 
 # ========================================
 # LOGIN
 # ========================================
 
-@app.route("/login", methods=["GET", "POST"])
+@app.route(
+    "/login",
+    methods=["GET", "POST"]
+)
 def login():
 
     if request.method == "POST":
@@ -236,11 +309,13 @@ def login():
 
         return "Please enter username and password"
 
-    return send_file("login.html")
+    return send_file(
+        "login.html"
+    )
 
 
 # ========================================
-# CHECK EVENT
+# CHECK PAGE
 # ========================================
 
 @app.route("/check")
@@ -250,16 +325,22 @@ def check():
 
         return redirect("/login")
 
-    return send_file("check.html")
+    return send_file(
+        "check.html"
+    )
 
 
 # ========================================
 # PREDICT
 # ========================================
 
-@app.route("/predict", methods=["POST"])
+@app.route(
+    "/predict",
+    methods=["POST"]
+)
 def predict():
 
+    # Check login
     if not session.get("logged_in"):
 
         return jsonify({
@@ -268,29 +349,33 @@ def predict():
         }), 401
 
 
+    # Get JSON data
     data_received = request.get_json()
 
 
+    # Check received data
     if not data_received:
 
         return jsonify({
             "result": "NO RESULT",
-            "reason": "No event was entered.",
+            "reason": "No news was entered.",
             "confidence": "0%"
         })
 
 
+    # Get news
     news_text = data_received.get(
         "news",
         ""
     ).strip()
 
 
+    # Empty input
     if not news_text:
 
         return jsonify({
             "result": "NO RESULT",
-            "reason": "Please enter a historical event or news.",
+            "reason": "Please enter a news article.",
             "confidence": "0%"
         })
 
@@ -299,7 +384,19 @@ def predict():
     # PREPROCESS INPUT
     # ========================================
 
-    clean_input = preprocess_text(news_text)
+    clean_input = preprocess_text(
+        news_text
+    )
+
+
+    # Check cleaned input
+    if not clean_input:
+
+        return jsonify({
+            "result": "NO RESULT",
+            "reason": "Could not process the entered news.",
+            "confidence": "0%"
+        })
 
 
     # ========================================
@@ -312,31 +409,7 @@ def predict():
 
 
     # ========================================
-    # SIMILARITY CHECK
-    # ========================================
-
-    similarity_scores = event_features.dot(
-        X_train.T
-    )
-
-    max_similarity = similarity_scores.max()
-
-
-    # ========================================
-    # NO RESULT
-    # ========================================
-
-    if max_similarity < NO_RESULT_THRESHOLD:
-
-        return jsonify({
-            "result": "NO RESULT",
-            "reason": "This event is not sufficiently similar to the trained dataset.",
-            "confidence": "0%"
-        })
-
-
-    # ========================================
-    # MODEL PREDICTION
+    # PREDICTION
     # ========================================
 
     prediction = model.predict(
@@ -344,22 +417,44 @@ def predict():
     )[0]
 
 
+    # ========================================
+    # CONFIDENCE
+    # ========================================
+
     probabilities = model.predict_proba(
         event_features
     )[0]
 
-    confidence = max(probabilities) * 100
+
+    confidence = max(
+        probabilities
+    ) * 100
 
 
     # ========================================
-    # STORE HISTORY
+    # RESULT
+    # ========================================
+
+    # Since threshold is 0,
+    # model prediction will be displayed.
+    if confidence < LOW_CONFIDENCE_THRESHOLD:
+
+        display_result = "UNCERTAIN"
+
+    else:
+
+        display_result = prediction
+
+
+    # ========================================
+    # SAVE HISTORY
     # ========================================
 
     history_item = {
 
         "text": news_text,
 
-        "result": prediction,
+        "result": display_result,
 
         "confidence": round(
             confidence,
@@ -377,17 +472,16 @@ def predict():
     )
 
 
-    # SAVE HISTORY TO FILE
     save_history()
 
 
     # ========================================
-    # RETURN RESULT
+    # SEND RESULT
     # ========================================
 
     return jsonify({
 
-        "result": prediction,
+        "result": display_result,
 
         "confidence": f"{confidence:.2f}%"
 
@@ -405,7 +499,9 @@ def history():
 
         return redirect("/login")
 
-    return send_file("history.html")
+    return send_file(
+        "history.html"
+    )
 
 
 # ========================================
@@ -415,11 +511,9 @@ def history():
 @app.route("/history-data")
 def history_data_route():
 
-    if not session.get("logged_in"):
-
-        return jsonify([])
-
-    return jsonify(history_data)
+    return jsonify(
+        history_data
+    )
 
 
 # ========================================
@@ -439,10 +533,7 @@ def clear_history():
     save_history()
 
     return jsonify({
-
-        "message":
-        "History cleared successfully"
-
+        "message": "History cleared successfully"
     })
 
 
@@ -457,7 +548,9 @@ def report():
 
         return redirect("/login")
 
-    return send_file("report.html")
+    return send_file(
+        "report.html"
+    )
 
 
 # ========================================
@@ -497,7 +590,6 @@ def generate_report():
         18
     )
 
-
     pdf.drawString(
         50,
         height - 50,
@@ -524,9 +616,7 @@ def generate_report():
         f"Model Accuracy: {accuracy * 100:.2f}%"
     )
 
-
     y -= 20
-
 
     pdf.drawString(
         50,
@@ -534,9 +624,7 @@ def generate_report():
         f"Precision: {precision * 100:.2f}%"
     )
 
-
     y -= 20
-
 
     pdf.drawString(
         50,
@@ -544,16 +632,13 @@ def generate_report():
         f"Recall: {recall * 100:.2f}%"
     )
 
-
     y -= 20
-
 
     pdf.drawString(
         50,
         y,
         f"F1 Score: {f1 * 100:.2f}%"
     )
-
 
     y -= 40
 
@@ -567,13 +652,11 @@ def generate_report():
         13
     )
 
-
     pdf.drawString(
         50,
         y,
         "Prediction History"
     )
-
 
     y -= 25
 
@@ -604,7 +687,6 @@ def generate_report():
             f"Result: {result} | Confidence: {confidence}%"
         )
 
-
         y -= 18
 
 
@@ -614,11 +696,8 @@ def generate_report():
             f"Date: {date}"
         )
 
-
         y -= 18
 
-
-        # Split long text
 
         words = text.split()
 
@@ -692,10 +771,15 @@ def logout():
 
 
 # ========================================
-# START FLASK
+# START SERVER
 # ========================================
 
 if __name__ == "__main__":
+
+    print("================================")
+    print("FAKE NEWS CLASSIFIER")
+    print("SERVER STARTING...")
+    print("================================")
 
     app.run(
         host="0.0.0.0",
