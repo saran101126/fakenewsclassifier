@@ -215,8 +215,14 @@ print(
 # CONFIDENCE THRESHOLD
 # ========================================
 
-# 0 means UNCERTAIN will not be displayed.
 LOW_CONFIDENCE_THRESHOLD = 0.0
+
+
+# ========================================
+# DATASET SIMILARITY THRESHOLD
+# ========================================
+
+NO_RESULT_THRESHOLD = 0.60
 
 
 # ========================================
@@ -409,6 +415,34 @@ def predict():
 
 
     # ========================================
+    # DATASET SIMILARITY CHECK
+    # ========================================
+
+    similarities = cosine_similarity(
+        event_features,
+        X_features
+    )[0]
+
+
+    max_similarity = float(
+        similarities.max()
+    )
+
+
+    # ========================================
+    # NO RESULT CHECK
+    # ========================================
+
+    if max_similarity < NO_RESULT_THRESHOLD:
+
+        return jsonify({
+            "result": "NO RESULT",
+            "confidence": "0%",
+            "reason": "This historical event is not sufficiently similar to the available dataset."
+        })
+
+
+    # ========================================
     # PREDICTION
     # ========================================
 
@@ -435,8 +469,6 @@ def predict():
     # RESULT
     # ========================================
 
-    # Since threshold is 0,
-    # model prediction will be displayed.
     if confidence < LOW_CONFIDENCE_THRESHOLD:
 
         display_result = "UNCERTAIN"
@@ -483,7 +515,9 @@ def predict():
 
         "result": display_result,
 
-        "confidence": f"{confidence:.2f}%"
+        "confidence": f"{confidence:.2f}%",
+
+        "similarity": f"{max_similarity * 100:.2f}%"
 
     })
 
